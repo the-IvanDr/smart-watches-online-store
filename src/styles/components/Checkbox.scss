@@ -1,0 +1,67 @@
+@import "./../../styles/variables";
+
+.Checkbox {
+    display: flex;
+    align-items: center;
+    
+    padding: 5px 30px 5px 10px;
+
+    &.checked{
+        .Checkbox{
+
+            &__box{
+                position: relative;
+                background: rgb(53, 98, 167);
+    
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0px;
+                    right: 5px;
+                    display: inline-block;
+                    vertical-align: top;
+                    border: solid #fff;
+                    padding: 6px 3px;
+                    margin-left: 12px;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    -webkit-transition: all 0.15s;
+                    -ms-transition: all 0.15s;
+                    transition: all 0.15s;
+                }
+            }
+
+            &__title{
+                color: rgb(53, 98, 167);
+            }
+        }
+
+
+    }
+
+    &__box {
+        display: block;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+        box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 10px;
+    }
+
+    &__title {
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        white-space: pre;
+
+        &:hover {
+            color: $second-color;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+    }
+}

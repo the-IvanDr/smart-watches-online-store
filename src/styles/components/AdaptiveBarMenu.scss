@@ -1,0 +1,278 @@
+@import "../../styles/variables";
+
+.AdaptiveBarMenu {
+    position: fixed;
+    top: 0;
+    left: -440px;
+    display: none;
+    flex-direction: column;
+    width: 440px;
+    height: 110%;
+    background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 101;
+    transition: all $menu-transition-time-1;
+
+    &.active {
+        left: 0;
+    }
+
+    &__close-btn {
+        border: none;
+        background: none;
+        padding: 5px 15px;
+        margin: 0;
+        font-size: 30px;
+        top: 0;
+    }
+
+    &__back-btn {
+        border: none;
+        background: none;
+        padding: 5px 15px;
+        margin: 0;
+        font-size: 18px;
+        top: 0;
+
+        font-weight: 500;
+        font-size: 18px;
+        // text-transform: capitalize;
+
+        i {
+            margin-right: 15px;
+        }
+
+        &:hover {
+            color: $second-color;
+        }
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    &__title {
+        position: fixed;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: inherit;
+        z-index: 20;
+        height: $adapt-menu-title-height;
+        background: #ededed;
+        font-size: 22px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    nav {
+        padding-top: 50px;
+        padding-bottom: 20%;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            padding: 20px 0px 20px 40px;
+            li {
+                position: relative;
+                font-size: 20px;
+                margin-bottom: 10px;
+
+                a {
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: 500;
+                    display: block;
+                    padding: 5px 0;
+                }
+
+                i {
+                    position: absolute;
+                    top: 50%;
+                    left: -30px;
+                    transform: translateY(-50%);
+                }
+
+                &.tab-btn {
+                    font-size: 25px;
+                    font-weight: 500;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    i {
+                        // position: relative;
+                        left: auto;
+                        right: 20px;
+                        font-size: 20px;
+                    }
+                }
+
+                &.desire-list,
+                &.contacts {
+                    margin-top: 20px;
+                }
+
+                button.call-request {
+                    background: none;
+                    border: none;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 3px;
+                    padding: 10px 15px;
+
+                    font-weight: 500;
+                    font-size: 19px;
+                }
+
+                &.socials {
+                    flex-direction: column;
+                    margin-top: 20px;
+                    font-weight: 500;
+
+                    .socials__wrapper {
+                        display: flex;
+                        flex-direction: row;
+                        margin-top: 10px;
+
+                        img {
+                            width: 40px;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+
+                &:hover,
+                a:hover {
+                    color: $second-color;
+                }
+
+                a:focus,
+                a:active {
+                    outline: none;
+                    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+                    -webkit-tap-highlight-color: transparent;
+                }
+            }
+        }
+    }
+
+    .catalog,
+    .call-request-screen {
+        position: absolute;
+        background: #fff;
+        width: 100%;
+        height: inherit;
+        top: 0;
+        left: auto;
+        right: -100%;
+        transition: all $menu-transition-time-1;
+
+        .thin {
+            position: absolute;
+        }
+
+        &.active {
+            right: 0;
+        }
+    }
+
+    .call-request-screen {
+        position: absolute;
+        background: #fff;
+        width: 100%;
+        height: inherit;
+        top: 0;
+        left: auto;
+        right: -100%;
+        transition: right $menu-transition-time-1;
+
+        .thin {
+            position: absolute;
+        }
+
+        &.active {
+            right: 0;
+        }
+
+        &__wrapper {
+            margin-top: $adapt-menu-title-height;
+            padding: 10px;
+
+            p {
+                font-size: 15px;
+                font-weight: 500;
+            }
+
+            .form-inputs {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                align-items: stretch;
+
+                &__item {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+
+                    i {
+                        position: absolute;
+                        left: 10px;
+                        color: #1d5ca4;
+                    }
+
+                    input {
+                        width: inherit;
+                        display: flex;
+                        padding: 10px;
+                        padding-left: 30px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        box-sizing: border-box;
+                        border: none;
+                        border: 1px solid rgba(0, 0, 0, 0.5);
+                        border-radius: 3px;
+
+                        transition: all 0.3s;
+
+                        &:focus,
+                        &:active {
+                            outline: none;
+                            border: 1px solid rgba(0, 0, 0, 0.8);
+                        }
+                    }
+                }
+
+                button {
+                    display: block;
+                    padding: 12px;
+                    border: none;
+                    border-radius: 3px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    background: $second-color;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1340px) {
+    .AdaptiveBarMenu {
+        display: flex;
+    }
+}
+
+@media (max-width: 700px) {
+    .AdaptiveBarMenu {
+        display: flex;
+        width: 90%;
+        left: -90%;
+    }
+}

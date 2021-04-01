@@ -1,0 +1,91 @@
+.ViewedProducts {
+    margin: 0 auto;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    // width: 100%;
+    max-width: 1500px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    padding: 20px 0px 20px 40px;
+
+    &__title {
+        max-width: 180px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__wrapp {
+        // width: 100%;
+        margin-left: 20px;
+    }
+
+    .Carousel {
+        max-width: 1270px;
+        width: 96%;
+        &__slider {
+            padding: 0;
+            width: 100%;
+        }
+
+        &__slideRight,
+        &__slideLeft {
+            top: 50px;
+        }
+
+        &__slideLeft {
+            left: 0;
+        }
+
+        &__slideRight {
+            right: 10px;
+        }
+
+        &::after {
+            right: -1px;
+        }
+    }
+
+    .ProductCard {
+        min-width: 10.6%;
+        width: 10.6%;
+
+        padding: 0;
+        margin-left: 20px;
+
+        &__image {
+            margin: 0;
+            width: 100%;
+            img {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        &__novelty {
+            display: none;
+        }
+
+        &__name,
+        &__price {
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        &:hover {
+            .ProductCard__hiden {
+                display: none;
+            }
+        }
+
+        &_on-focus {
+            box-shadow: none;
+        }
+    }
+}
+
+
+@media (max-width: 1340px){
+    .ViewedProducts{
+        display: none;
+    }
+}

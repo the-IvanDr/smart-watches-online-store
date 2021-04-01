@@ -1,0 +1,410 @@
+@import "./../../styles/variables";
+
+.Filter {
+    padding: 0 30px;
+    margin: 0 auto;
+    margin-top: 30px;
+    max-width: 1500px;
+    display: flex;
+    justify-content: space-between;
+
+    &__right-wrapp,
+    &__left-wrapp {
+        display: flex;
+        font-size: 14px;
+    }
+
+    &__title {
+        opacity: 0.5;
+        padding: 12px 15px;
+    }
+
+    &__item {
+        position: relative;
+        padding: 12px 15px;
+        transition: background 0.2s;
+
+        &__title {
+            &::after {
+                content: "";
+                position: relative;
+                top: 4px;
+                display: inline-block;
+                vertical-align: top;
+                border: solid #000;
+                padding: 3px;
+                margin-left: 12px;
+                border-width: 0 1px 1px 0;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -webkit-transition: all 0.15s;
+                -ms-transition: all 0.15s;
+                transition: all 0.15s;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.1);
+
+            .Filter__item__dropdown {
+                visibility: visible;
+            }
+        }
+
+        &__dropdown {
+            background: #fff;
+            box-sizing: border-box;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            padding: 5px;
+            visibility: hidden;
+            z-index: 20;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                li {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+
+            &.-sort {
+                width: 100%;
+                border-radius: 0px 0px 5px 5px;
+
+                li {
+                    padding: 5px 10px;
+                }
+
+                a {
+                    font-size: 14px;
+                    color: #000;
+                    text-decoration: none;
+                    white-space: pre;
+                }
+            }
+
+            .PriceRangeInput-wrap {
+                margin-top: 10px;
+            }
+
+            &:hover {
+                cursor: initial;
+            }
+        }
+    }
+}
+
+.AdaptiveFilter {
+    &__open-menu-btn {
+        display: none;
+        position: fixed;
+        top: 60px;
+        right: 30px;
+        z-index: 101;
+
+        background: #ffffff99;
+        border: none;
+        border-radius: 5px;
+
+        font-size: 20px;
+        padding: 5px 10px;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    &__menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -440px;
+        height: 100%;
+        width: 440px;
+        background: #fff;
+        z-index: 101;
+        overflow-y: auto;
+        flex-direction: column;
+        padding-bottom: 50px;
+
+        transition: all $menu-transition-time-1;
+
+        &.active{
+            right: 0;
+        }
+
+        &__title {
+            box-sizing: border-box;
+            position: fixed;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            align-items: center;
+            width: inherit;
+            z-index: 20;
+            height: $adapt-menu-title-height;
+            background: #ededed;
+            font-size: 20px;
+            font-weight: 400;
+
+            button {
+                background: none;
+                border: none;
+                font-size: 25px;
+                &:focus,
+                &:active {
+                    outline: none;
+                }
+            }
+        }
+
+        &__wrap {
+            padding-top: $adapt-menu-title-height;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        &__section-title {
+            padding: 0 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        &__sort {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: visible;
+            background: #fff;
+
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            &:active,
+            &:focus {
+                outline: none;
+            }
+        }
+
+        &__select-wrap {
+            position: relative;
+            padding: 0 10px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                display: inline-block;
+                vertical-align: top;
+                border: solid #00000099;
+                padding: 4px;
+                margin-left: 12px;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -webkit-transition: all 0.15s;
+                -ms-transition: all 0.15s;
+                transition: all 0.15s;
+            }
+        }
+
+        .Checkbox {
+            border-top: 1px solid #00000022;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            padding: 10px;
+            padding-right: 5px;
+
+            &__title {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        &__PriceRangeInput {
+            border-top: 1px solid #00000022;
+            padding-top: 10px;
+
+            &__title {
+                font-size: 16px;
+                font-weight: 500;
+                padding-left: 10px;
+                margin-bottom: 10px;
+            }
+
+            .PriceRangeInput {
+                button {
+                    display: none;
+                }
+
+                input {
+                    width: 100%;
+                }
+
+                &__slider {
+                    margin-top: 20px;
+
+                    &__full-line,
+                    &__range-line {
+                        height: 6px;
+                        width: 98%;
+                        margin: 0 auto;
+                        background: rgb(53, 98, 167)
+                    }
+
+                    &__start-pos,
+                    &__end-pos {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        background: rgb(53, 98, 167);
+                    }
+                }
+            }
+        }
+
+        &__tab {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #00000022;
+            border-bottom: 1px solid #00000022;
+
+            &__title {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        &__buttons{
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 10px;
+
+
+            button{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                font-weight: 500;
+                padding: 10px;
+                border-radius: 5px;                
+
+                &:first-child{
+                    margin-right: 10px;
+                }       
+
+                &:active, &:focus{
+                    outline: none;
+                }
+            }
+
+            &__apply{
+                color: #fff;
+                background: $second-color;
+                border: 1px solid $second-color;
+            }
+
+            &__cancel{
+                border: 1px solid rgba(0, 0, 0, .5);
+                background: #fff;
+            }
+
+
+        }
+    }
+
+    &__brands-list {
+        position: fixed;
+        top: 0;
+        right: -440px;
+        height: 100%;
+        width: 440px;
+        background: #fff;
+        z-index: 103;
+
+        transition: all $menu-transition-time-1;
+
+        &.active{
+            right: 0;
+        }
+
+
+        &__title {
+            box-sizing: border-box;
+            position: fixed;
+            display: flex;
+            justify-content: flex-start;
+            padding: 0 10px;
+            align-items: center;
+            width: inherit;
+            z-index: 20;
+            height: $adapt-menu-title-height;
+            background: #ededed;
+            font-size: 20px;
+            font-weight: 400;
+
+            button {
+                margin-right: 10px;
+                background: none;
+                border: none;
+                font-size: 20px;
+                &:focus,
+                &:active {
+                    outline: none;
+                }
+            }
+        }
+
+        &__wrap{
+            padding-top: $adapt-menu-title-height;
+
+            .Checkbox{
+                border: none;
+                border-bottom: 1px solid #00000022;
+            }
+        }
+    }
+}
+
+@media (max-width: 1340px) {
+    .AdaptiveFilter {
+        &__open-menu-btn,
+        &__menu {
+            display: flex;
+        }
+    }
+
+    .Filter {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .AdaptiveFilter {
+        &__menu, &__brands-list{
+            width: 90%;
+            right: -90%;
+        }
+    }
+}

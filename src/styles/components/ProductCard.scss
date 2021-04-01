@@ -1,0 +1,199 @@
+@import "./../../styles/variables.scss";
+
+.ProductCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 270px;
+    min-width: 260px;
+
+    padding: 15px;
+    border-radius: 5px 5px 0 0;
+
+    &__image {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+        margin-bottom: 13px;
+        margin-top: 30px;
+        img {
+            width: 90%;
+            margin-bottom: 25px;
+        }
+    }
+
+    &__novelty {
+        background: #1e90ff;
+        padding: 3px 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        border-radius: 3px;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            border: 5px solid transparent;
+            border-top: 4px solid #1e90ff;
+            bottom: -9px;
+        }
+    }
+
+    &__name {
+        text-decoration: none;
+        color: #000;
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 10px;
+
+        &:hover {
+            color: #1974d2;
+        }
+    }
+
+    &__price {
+        font-size: 17px;
+        font-weight: 700;
+        z-index: 10;
+
+        span {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+    }
+
+    &__hiden {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+
+        position: absolute;
+        background: #fff;
+        bottom: 0;
+        left: 0;
+        max-width: 260px;
+        width: 100%;
+        padding: 0 15px 16px;
+        transform: translateY(90%);
+        box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 5px 5px;
+        z-index: 100;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #fff;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $second-color;
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.2s;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        &__heart {
+            border: 3px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
+            padding: 5px;
+            opacity: 0.74;
+
+            i {
+                font-size: 24px;
+                color: red;
+                // font-weight: 800;
+                padding: 2px 2px 0 2px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.checked {
+                background: $main-color;
+                i {
+                    font-weight: 800;
+                }
+            }
+        }
+    }
+
+    &_on-focus {
+        border-bottom: 0;
+        box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover &__hiden {
+        display: flex;
+    }
+}
+
+@media (max-width: 1518px) {
+    .ProductCard {
+        min-width: 240px;
+    }
+}
+
+@media (max-width: 1440px) {
+    .ProductCard {
+        min-width: 220px;
+    }
+}
+
+@media (max-width: 1340px) {
+    .ProductCard {
+        min-width: 170px;
+        padding: 0;
+
+        &__novelty {
+            font-size: 10px;
+        }
+
+        &__name {
+            font-size: 14px;
+        }
+
+        &__price {
+            font-size: 15px;
+            span {
+                font-size: 13px;
+            }
+        }
+
+        &:hover &__hiden {
+            display: none;
+        }
+
+        &_on-focus {
+            box-shadow: none;
+        }
+    }
+}

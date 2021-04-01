@@ -1,0 +1,59 @@
+@import "../../styles/variables";
+
+.SearchLine {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+
+    z-index: 100;
+
+    &__search-btn,
+    &__close-btn {
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 50px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        opacity: 0.5;
+    }
+
+    &__search-btn {
+        left: 0;
+    }
+
+    &__close-btn {
+        right: 0;
+    }
+
+    input {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #b19015;
+
+        padding: 0px 50px;
+        font-size: 20px;
+    }
+
+    &.active {
+        display: flex;
+    }
+}
+
+@media (max-width: 700px) {
+    .SearchLine {
+        input {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+}

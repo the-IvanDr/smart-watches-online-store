@@ -1,0 +1,85 @@
+.WhomBanner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &__slider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 50px;
+
+        a {
+            width: 50%;
+            img {
+                width: 100%;
+                transition: all 0.7s;
+
+                &:hover {
+                    transform: scale(1.05, 1.05);
+                }
+            }
+        }
+    }
+
+    &__btn-wrapper {
+        display: none;
+    }
+}
+
+@media (max-width: 430px) {
+    .WhomBanner {
+        margin-top: 20px;
+        // height: 1000px;
+
+        &__carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 220px;
+        }
+
+        &__slider {
+            position: absolute;
+            left: 0px;
+            padding: 0;
+            max-width: 1000px;
+            width: 200%;
+
+            transition: 0.5s all;
+
+            a {
+                width: 100%;
+                padding: 0 20px;
+            }
+        }
+
+        &__btn-wrapper {
+            display: flex;
+            justify-content: center;
+
+            button {
+                width: 11px;
+                height: 11px;
+                padding: 0;
+                background: #000;
+                border: none;
+                border-radius: 50px;
+                opacity: 0.6;
+
+                &:first-child {
+                    margin-right: 5px;
+                }
+
+                &:focus,
+                &:active {
+                    outline: none;
+                }
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

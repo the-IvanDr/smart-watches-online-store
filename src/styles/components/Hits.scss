@@ -1,0 +1,23 @@
+.Hits {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 35px;
+
+    &__title {
+        align-self: center;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 1340px) {
+    .Hits {
+        &__title {
+            align-self: flex-start;
+            margin-left: 20px;
+        }
+    }
+}
