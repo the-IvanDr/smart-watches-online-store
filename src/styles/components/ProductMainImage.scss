@@ -1,0 +1,137 @@
+.ProductMainImage{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__image{
+        margin: 67px 0px;
+        width: 55%;
+        height: 55%;
+    }
+    
+    &__brand-icon {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        display: block;
+        width: 60px;
+        height: 60px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__marker {
+        position: absolute;
+
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: $second-color;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 500;
+
+        border-radius: 3px;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 15px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 7px 0 7px;
+            border-color: $second-color transparent transparent transparent;
+        }
+    }
+}
+
+
+.ModalImage{
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 101;
+    opacity: 0;
+
+    &.active{
+        display: flex;
+        animation: ModalImage_fadein 0.2s 1 linear forwards;
+    }
+
+    &__title{
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        width: 100%;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 16px 20px;
+        border-bottom: 1px solid #00000022;
+
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            height: 100%;
+            right: 0;
+            padding: 0 20px;
+            background: #fff;
+            color: rgba(0, 0, 0, .3);
+            border: none;
+            font-size: 25px;
+
+            transition: all .4s;
+
+            &:hover{
+                cursor: pointer;
+                background: #00000022;
+            }
+
+            &:active, &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    &__image{
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 0px;
+        img{
+            height: 100%;
+        }
+    }
+}
+
+@keyframes ModalImage_fadein{
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

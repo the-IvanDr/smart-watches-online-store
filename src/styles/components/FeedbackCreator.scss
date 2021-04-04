@@ -1,0 +1,113 @@
+.FeedbackCreator {
+    margin-top: 25px;
+    margin-bottom: 1000px;
+
+    &__flex-wrap {
+        display: flex;
+
+        &__left {
+            width: 8%;
+        }
+
+        &__right {
+            width: 100%;
+        }
+    }
+
+    &__user-avatar {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+
+        i {
+            font-size: 25px;
+            color: #fff;
+        }
+
+        img {
+            height: 100%;
+        }
+    }
+
+    &__inputs-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+            display: block;
+            margin-bottom: 20px;
+            width: 262px;
+            padding: 8px 10px;
+            background: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            box-shadow: inset 0px 1px 5px rgba(0, 0, 0, .1);
+            font-size: 16px;
+        }
+
+        textarea{
+            box-sizing: border-box;
+            display: block;
+            resize: vertical;
+            width: 100%;
+            border: 1px solid #acacac;
+            border-radius: 4px;
+            background: #fff;
+            padding: 6px 8px;
+            font-size: 16px;
+            height: 86px;
+        }
+
+        input:focus, input:active, textarea:active, textarea:focus{
+            outline: none;
+        }
+    }
+
+    &__rate{
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        p{
+            margin: 0;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        &__input{
+            *{
+                margin-right: 3px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__submit-btn{
+        display: block;
+        margin-top: 20px;
+        font-size: 18px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        background: $second-color;
+        border: none;
+        color: #fff;
+
+        transition: all .5s;
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        &:focus, &:active{
+            outline: none;
+        }
+    }
+}

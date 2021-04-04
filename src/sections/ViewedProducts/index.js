@@ -13,34 +13,34 @@ export default function ViewedProducts() {
             <div className='ViewedProducts__wrapp'>
                 <Carousel amountShowedElems={AMOUNT_OF_ELEMENTS_TO_SHOW}>
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                     <ProductCard
-                        img='./assets/images/products/amazfit__verge.jpg'
+                        img='../assets/images/products/amazfit__verge.jpg'
                     />
                 </Carousel>
             </div>

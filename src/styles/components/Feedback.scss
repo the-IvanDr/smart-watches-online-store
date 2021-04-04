@@ -1,0 +1,63 @@
+.Feedback{
+    margin-top: 25px;
+
+    &__flex-wrap{
+        display: flex;
+
+        &__left{
+            width: 8%;
+        }
+
+        &__right{
+            width: 100%;
+        }
+    }
+
+    &__user-avatar{
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        background: rgba(0, 0, 0, .7);
+        border-radius: 5px;
+
+        i{
+            font-size: 25px;
+            color: #fff;
+        }
+
+        img{
+            height: 100%;
+        }
+    }
+
+    &__header{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 500;
+        opacity: .7;
+
+        &__name, &__time{
+            margin-right: 10px;
+        }
+
+        &__name{
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        &__rate{
+            color: rgb(255, 211, 66);
+        }
+    }
+
+    &__text{
+        font-size: 14px;
+        p{
+            margin: 10px 0px 0px 0px;
+        }
+    }
+}
