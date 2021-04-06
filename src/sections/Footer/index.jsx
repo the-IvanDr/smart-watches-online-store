@@ -5,7 +5,7 @@ export default function Footer(props) {
         <footer className='Footer'>
             <div className='Footer__header'>
                 <div className='Footer__header__logo'>
-                    <img src='./assets/images/header/logo.jpg' alt='TimeShop' />
+                    <img src='../assets/images/header/logo.jpg' alt='TimeShop' />
                 </div>
                 <div className='Footer__header__copyright'>
                     <span>© 2018-2021</span>
@@ -14,8 +14,8 @@ export default function Footer(props) {
                 <div className='Footer__header__payment'>
                     <span>Принимаем к оплате</span>
                     <div className='Footer__header__payment__wrapper'>
-                        <a href='/'><img src='./assets/images/payment/visa-mastercard.jpg' alt='visa-mastercard' /></a>
-                        <a href='/'><img src='./assets/images/payment/privat.jpg' alt='privat-bank' /></a>
+                        <a href='/'><img src='../assets/images/payment/visa-mastercard.jpg' alt='visa-mastercard' /></a>
+                        <a href='/'><img src='../assets/images/payment/privat.jpg' alt='privat-bank' /></a>
                     </div>
                 </div>
 

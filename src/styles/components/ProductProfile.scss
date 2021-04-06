@@ -6,7 +6,6 @@
         display: flex;
         padding-bottom: 40px;
         border-bottom: 1px solid #00000022;
-        margin-bottom: 1000px;
 
         &__left,
         &__right {
@@ -14,6 +13,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            z-index: 102;
 
             &__wrap {
                 position: sticky;
@@ -26,6 +26,7 @@
         }
 
         &__right {
+            z-index: 101;
             padding-left: 20px;
         }
     }
@@ -304,6 +305,56 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+        }
+    }
+
+    &__description {
+        padding-bottom: 30px;
+
+        &__title {
+            font-size: 16px;
+            padding: 0;
+            margin: 0;
+            margin-top: 15px;
+        }
+
+        img{
+            display: block;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 12px 0px 8px 0px;
+            line-height: 1.5;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            h4 {
+                font-size: 14px;
+                margin: 0;
+                padding: 0;
+                margin-bottom: 8px;
+            }
+
+            li {
+                position: relative;
+                padding-left: 20px;
+                font-size: 14px;
+                margin-bottom: 10px;
+
+                &::before {
+                    content: "\2014";
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
         }
     }
 }
