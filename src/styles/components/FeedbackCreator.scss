@@ -110,3 +110,52 @@
         }
     }
 }
+
+@media (max-width: 1340px){
+    .FeedbackCreator{
+        // padding-bottom: 15px;
+
+        &__flex-wrap{
+            &__left{
+                display: none;
+            }
+        }
+
+        &__inputs-wrap{
+            // padding: 0 15px;
+            input{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 12px;
+                font-weight: 500;
+                font-size: 17px;
+            }
+
+            textarea{
+                font-weight: 500;
+                font-size: 17px;
+            }
+        }
+
+        &__rate{
+            // padding: 0 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                font-size: 19px;
+                display: none;
+            }
+
+            &__input{
+                i{
+                    font-size: 25px;
+                }
+            }
+        }
+
+        &__submit-btn{
+            width: 100%;
+        }
+    }
+}

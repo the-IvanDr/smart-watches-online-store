@@ -1,63 +1,102 @@
-.Feedback{
+.Feedback {
     margin-top: 25px;
 
-    &__flex-wrap{
+    &__flex-wrap {
         display: flex;
 
-        &__left{
+        &__left {
             width: 8%;
         }
 
-        &__right{
+        &__right {
             width: 100%;
         }
     }
 
-    &__user-avatar{
+    &__user-avatar {
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 35px;
         height: 35px;
-        background: rgba(0, 0, 0, .7);
+        background: rgba(0, 0, 0, 0.7);
         border-radius: 5px;
 
-        i{
+        i {
             font-size: 25px;
             color: #fff;
         }
 
-        img{
+        img {
             height: 100%;
         }
     }
 
-    &__header{
+    &__header {
         display: flex;
         align-items: center;
         font-size: 12px;
         font-weight: 500;
-        opacity: .7;
+        opacity: 0.7;
 
-        &__name, &__time{
+        &__name,
+        &__time {
             margin-right: 10px;
         }
 
-        &__name{
+        &__name {
             font-size: 14px;
             font-weight: 600;
         }
 
-        &__rate{
+        &__rate {
             color: rgb(255, 211, 66);
         }
     }
 
-    &__text{
+    &__text {
         font-size: 14px;
-        p{
+        p {
             margin: 10px 0px 0px 0px;
+        }
+    }
+
+    &__adapt {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .Feedback {
+        &__flex-wrap {
+            &__left {
+                display: none;
+            }
+        }
+
+        &__adapt {
+            display: flex;
+            justify-content: flex-start;
+            align-items: space-between;
+
+            &__flex-wrapper {
+                display: flex;
+            }
+        }
+
+        &__header {
+            &.-sm-width {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin-left: 10px;
+            }
+
+            &.-md-width{
+                display: none;
+            }
         }
     }
 }

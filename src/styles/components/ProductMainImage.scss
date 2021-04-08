@@ -135,3 +135,33 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 1340px){
+    .ProductMainImage{
+        width: 70%;
+
+        &__image{
+            margin: 15px 0;
+            width: 60%;
+        }
+
+        &__brand-icon{
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 700px){
+    .ProductMainImage{
+        width: 100%;
+
+        &__image{
+            margin: 15px 0;
+            width: 80%;
+        }
+
+        &__brand-icon{
+            display: none;
+        }
+    }
+}

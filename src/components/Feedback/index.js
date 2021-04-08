@@ -13,7 +13,30 @@ export default function Feedback() {
                 </div>
 
                 <div className='Feedback__flex-wrap__right'>
-                    <div className='Feedback__header'>
+
+                    <div className='Feedback__adapt'>
+                        <div className='Feedback__user-avatar'>
+                            <i aria-hidden className="fas fa-user" />
+                            {/* <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCe_o8_IQuNtFocDhlA6xVDAZ0CeM0fa2B3g&usqp=CAU' alt='user' /> */}
+                        </div>
+
+                        <div className='Feedback__header -sm-width'>
+                            <div className='Feedback__header__name'>Dryga Ivan</div>
+
+                            <div className='Feedback__adapt__flex-wrapper'>
+                                <div className='Feedback__header__time'>24.01.2021</div>
+                                <div className='Feedback__header__rate'>
+                                    <i aria-hidden className="fas fa-star" />
+                                    <i aria-hidden className="fas fa-star" />
+                                    <i aria-hidden className="fas fa-star" />
+                                    <i aria-hidden className="far fa-star" />
+                                    <i aria-hidden className="far fa-star" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='Feedback__header -md-width'>
                         <div className='Feedback__header__name'>Dryga Ivan</div>
                         <div className='Feedback__header__time'>24.01.2021</div>
                         <div className='Feedback__header__rate'>
