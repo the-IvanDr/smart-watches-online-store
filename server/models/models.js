@@ -24,6 +24,7 @@ const Product = sequelize.define('product', {
     id: ID_TYPE,
 
     name: { type: DataTypes.STRING, allowNull: false },
+    imageSrc: { type: DataTypes.STRING, allowNull: false },
 
     price: { type: DataTypes.INTEGER, allowNull: false },
     old_price: { type: DataTypes.INTEGER },
@@ -33,7 +34,7 @@ const Product = sequelize.define('product', {
 
     is_for_woman: { type: DataTypes.BOOLEAN, allowNull: false },
     is_for_man: { type: DataTypes.BOOLEAN, allowNull: false },
-    is_for_child: { type: DataTypes.BOOLEAN, allowNull: false },
+    is_for_kids: { type: DataTypes.BOOLEAN, allowNull: false },
 
     description: { type: DataTypes.TEXT, allowNull: false }
 });
@@ -41,7 +42,8 @@ const Product = sequelize.define('product', {
 // Бренд
 const Brand = sequelize.define('brand', {
     id: ID_TYPE,
-    name: { type: DataTypes.STRING, allowNull: false }
+    name: { type: DataTypes.STRING, allowNull: false },
+    logoSrc: { type: DataTypes.STRING, allowNull: false }
 });
 
 // Тип
@@ -132,5 +134,4 @@ Product.belongsTo(Brand);
 Product.belongsTo(ProductDetails);
 
 
-
-module.exports = { User }
+module.exports = { User, Product, Brand, Type, ProductDetails, Feedback, Basket, PlacedOrder };

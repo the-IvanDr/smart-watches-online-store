@@ -1,4 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Footer from '../src/sections/Footer';
+import Header from './../src/sections/Header/index';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {

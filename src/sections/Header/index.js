@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,7 +15,6 @@ export default function Header(props) {
     const [isAdaptMenuActive, setIsAdaptMenuActive] = useState(false);
     const [isSearchLineActive, setIsSearchLineActive] = useState(false);
     const [isCartActive, setIsCartActive] = useState(false);
-
 
     const toggleMenu = () => {
         setIsAdaptMenuActive(prev => !prev);
