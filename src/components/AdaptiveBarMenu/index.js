@@ -2,22 +2,30 @@ import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import Substrate from '../Substrate';
+import AdaptiveAuthorization from '../Authorization/AdaptiveAuthorization';
 
 
 export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
     const [isCatalogActive, setIsCatalogActive] = useState(false);
     const [isCallReqActive, setIsCallReqActive] = useState(false);
+    const [isAuthorizationActive, setIsAuthorizationActive] = useState(false);
 
     const MainMenu_ref = useRef();
     const CallReqBlock_ref = useRef();
+    const Authorization_ref = useRef();
 
     useEffect(() => {
-        MainMenu_ref.current.style.overflowY = isCatalogActive || isCallReqActive ? 'hidden' : 'auto';
-    }, [isCatalogActive, isCallReqActive]);
+        MainMenu_ref.current.style.overflowY = isCatalogActive || isCallReqActive || isAuthorizationActive ? 'hidden' : 'auto';
+    }, [isCatalogActive, isCallReqActive, isAuthorizationActive]);
 
     const showCallReqBlock = () => {
         CallReqBlock_ref.current.style.top = MainMenu_ref.current.scrollTop + 'px';
         setIsCallReqActive(true);
+    }
+
+    const showAuthorizationBlock = () => {
+        Authorization_ref.current.style.top = MainMenu_ref.current.scrollTop + 'px';
+        setIsAuthorizationActive(true);
     }
 
     return (
@@ -55,7 +63,8 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
                         <li><a href='/'>Мой профиль</a></li>
                         <li><a href='/'>Мои заказы</a></li>
                         <li>
-                            <a href='/'>Выйти</a>
+                            {/* <a href='/'>Выйти</a> */}
+                            <button onClick={showAuthorizationBlock}>Войти</button>
                             <i aria-hidden className="fas fa-sign-out-alt" />
                         </li>
 
@@ -148,6 +157,13 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
                         </div>
                     </div>
                 </div>
+
+                {/* Authorization block */}
+                <AdaptiveAuthorization
+                    isActive={isAuthorizationActive}
+                    closeAuthorization={() => setIsAuthorizationActive(false)}
+                    AuthRef = {Authorization_ref}
+                />
             </div>
         </>
     )

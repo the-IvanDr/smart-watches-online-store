@@ -1,17 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import {isWidthEnough} from '../../utils/screenHelper.js';
+
 import Substrate from '../Substrate';
 
 
 export default function Cart({ isActive, toggleCart }) {
-
-    // Function to check is the width enough to open the modal screen (FOR ADAPTIVE)
-    const isWidthEnough = () => {
-        const ENOUGH_WIDTH = 1340;
-        return window.innerWidth > ENOUGH_WIDTH;
-    }
-
     return (
         <>
             <Substrate isActive={isActive} onClick={toggleCart} />

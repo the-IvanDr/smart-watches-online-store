@@ -89,6 +89,25 @@
                     padding: 5px 0;
                 }
 
+                button{
+                    display: block;
+                    border: none;
+                    background: none;
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: 500;
+                    display: block;
+                    padding: 5px 0;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+
+                    &:active, &:focus{
+                        outline: none;
+                    }
+                }
+
                 i {
                     position: absolute;
                     top: 50%;

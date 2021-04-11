@@ -2,7 +2,7 @@
 // import App from 'next/app';
 import { Provider } from 'react-redux';
 // import { createWrapper } from 'next-redux-wrapper';
-import store from '../src/store/store.js';
+import store from '../src/redux/store.js';
 
 import '../src/styles/normalize.css';
 import '../src/styles/fonts.css';

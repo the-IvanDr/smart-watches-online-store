@@ -7,6 +7,7 @@ import Image from 'next/image';
 import AdaptiveBarMenu from '../../components/AdaptiveBarMenu';
 import SearchLine from '../../components/SearchLine';
 import Cart from '../../components/Cart';
+import Authorization from '../../components/Authorization/ModalAuthorization';
 
 
 export default function Header(props) {
@@ -15,6 +16,7 @@ export default function Header(props) {
     const [isAdaptMenuActive, setIsAdaptMenuActive] = useState(false);
     const [isSearchLineActive, setIsSearchLineActive] = useState(false);
     const [isCartActive, setIsCartActive] = useState(false);
+    const [isAuthorizationActive, setIsAuthorizationActive] = useState(false);
 
     const toggleMenu = () => {
         setIsAdaptMenuActive(prev => !prev);
@@ -30,6 +32,10 @@ export default function Header(props) {
         document.body.style.overflow = !isCartActive ? 'hidden' : 'auto';
     }
 
+    const toggleAuthorization = () => {
+        setIsAuthorizationActive(prev => !prev);
+        document.body.style.overflow = !isAuthorizationActive ? 'hidden' : 'auto';
+    }
 
     return (
         <div className={clsx('Header', isYellow && 'Header_yellow')}>
@@ -39,6 +45,7 @@ export default function Header(props) {
                 <AdaptiveBarMenu isActive={isAdaptMenuActive} toggleMenu={toggleMenu} />
                 <SearchLine isActive={isSearchLineActive} toggleSearchLine={toggleSearchLine} />
                 <Cart isActive={isCartActive} toggleCart={toggleCart} />
+                <Authorization isActive={isAuthorizationActive} toggleAuthorization={toggleAuthorization} />
 
                 <div className='Header__right-wrapper'>
                     <div className='Header__bars-menu' onClick={toggleMenu}>
@@ -84,6 +91,7 @@ export default function Header(props) {
                     {/*================= Auth Menu START =======================*/}
                     <div
                         className='Header__acc-menu__auth'
+                        onClick={toggleAuthorization}
                         onMouseEnter={() => setIsAuthDropDownMenuActive(true)}
                         onMouseLeave={() => setIsAuthDropDownMenuActive(false)}
                     >
