@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// API ROUTES (:ENDPOINTS)
+app.use('/api/auth', require('./routes/auth.router'));
+
+
 
 const PORT = process.env.PORT || 5500;
 

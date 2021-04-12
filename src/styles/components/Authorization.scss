@@ -149,10 +149,15 @@
     }
 
     &__input-wrapper {
+        position: relative;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         margin-bottom: 20px;
+
+        &__flex-wrapper{
+            display: flex;
+        }
 
         &__label {
             font-size: 13px;
@@ -167,6 +172,16 @@
             }
         }
 
+        p{
+            position: absolute;
+            font-size: 10px;
+            margin: 0;
+            bottom: 100%;
+            left: 26%;
+            color: red;
+            background: $main-color;
+        }
+
         input {
             display: block;
             border: 1px solid rgba(0, 0, 0, 0.2);
@@ -178,6 +193,14 @@
             &:active {
                 outline: none;
                 border: 1px solid rgba(0, 0, 0, 0.8);
+            }
+
+            &.error {
+                border-color: red;
+                &:focus,
+                &:active {
+                    border-color: red;
+                }
             }
         }
     }
@@ -246,14 +269,14 @@
     top: 0;
     left: 100%;
     height: 100%;
-    width: inherit;
+    width: 100%;
     background: #fff;
     z-index: 105;
     overflow-x: hidden;
 
-    transition: left .5s;
+    transition: left 0.5s;
 
-    &.active{
+    &.active {
         left: 0;
     }
 
@@ -302,7 +325,7 @@
 
     &__inputs {
         overflow-y: auto;
-        height: 60%;
+        height: 80%;
         padding: 10px;
         padding-top: 70px;
     }
@@ -406,8 +429,8 @@
         background: #fff;
         z-index: 106;
 
-        transition: all .5s;
-        
+        transition: all 0.5s;
+
         &.active {
             left: 0;
         }

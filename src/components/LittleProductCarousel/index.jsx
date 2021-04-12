@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-import Carousel from './../Carousel/index';
-import ProductCard from './../ProductCard/index';
+import Carousel from '../Carousel/index';
+import ProductCard from '../ProductCard/index';
 
 
 export default function LittleProductCarousel({ ElementsCountToShow }) {
