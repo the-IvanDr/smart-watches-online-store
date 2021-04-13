@@ -160,8 +160,9 @@
         }
 
         &__label {
-            font-size: 13px;
+            font-size: 12px;
             margin-right: 10px;
+            white-space: pre;
 
             &.required {
                 &::after {
@@ -180,6 +181,8 @@
             left: 26%;
             color: red;
             background: $main-color;
+            
+            transition: all 2s;
         }
 
         input {
@@ -245,6 +248,12 @@
         }
     }
 
+    &__main-error-msg{
+        color: red;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
     &__restore-password {
         display: none;
 
@@ -259,6 +268,18 @@
         p {
             font-size: 14px;
             margin-bottom: 20px;
+        }
+    }
+
+    &__registration-success-block{
+        display: none;
+
+        &.active{
+            display: block;
+        }
+
+        &__header{
+            font-size: 25px;
         }
     }
 }
@@ -348,15 +369,26 @@
                 outline: none;
                 border: 1px solid rgba(0, 0, 0, 0.8);
             }
+
+            &.error{
+                border-color: red;
+            }
         }
 
         i {
             position: absolute;
             left: 6px;
-            top: 50%;
+            top: 22px;
             transform: translateY(-50%);
             color: #3b5998;
             font-size: 18px;
+        }
+
+        p{
+            margin: 0;
+            font-size: 12px;
+            color: red;
+            background: $main-color;
         }
     }
 
@@ -420,7 +452,7 @@
         }
     }
 
-    &__restore-password {
+    &__restore-password, &__registration-success-block {
         position: absolute;
         top: 0;
         left: 100%;
@@ -475,6 +507,11 @@
                 margin: 10px 0px;
                 margin-bottom: 20px;
             }
+        }
+
+        p{
+            margin-top: 60px;
+            padding: 0 10px;
         }
     }
 }

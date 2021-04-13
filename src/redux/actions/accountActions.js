@@ -39,30 +39,77 @@ const RegValidation = (regData) => {
         isValid = false;
     }
 
+    // Check passwrod confirmation
+    if (!validator.equals(regData.password, regData.confirmPassword)) {
+        regData.errors.confirmPassword = 'Пароли не сопадают!';
+        isValid = false;
+    }
+
     return [isValid, regData.errors];
 }
 
+const LogValidation = (logData) => {
+    let isValid = true;
 
+    // Check the user's e-mail
+    if (!validator.isEmail(logData.email)) {
+        logData.errors.email = 'Некорректный e-mail!';
+        isValid = false;
+    }
 
-export const login = () => async dispatch => {
-    dispatch({
-        type: types.AUTH_LOGIN,
-        payload: {}
-    });
+    // Check the user's password
+    if (!validator.isLength(logData.password, { min: 1 })) {
+        logData.errors.password = 'Введите пароль!';
+        isValid = false;
+    }
+
+    return [isValid, logData.errors];
 }
 
-export const registration = (regData) => async dispatch => {
-    const [isValid, errors] = RegValidation(regData);
+
+export const login = (logData) => async dispatch => {
+    const [isValid, errors] = LogValidation(logData);
     if (!isValid) {
         return dispatch({
-            type: types.AUTH_INVALID_REG_INPUT,
+            type: types.AUTH_INVALID_LOG_INPUT,
             payload: {
                 errors
             }
-        })
+        });
     } else {
+        const data = { ...logData };
+        delete data.errors;
+        await APIQuery.LoginNewUser(data);
+    }
+}
+
+
+export const registration = (regData) => async dispatch => {
+    const [isValid, errors] = RegValidation(regData);
+
+    // If form is not valid, dispatch AUTH_INVALID_REG_INPUT action
+    if (!isValid) {
+        return dispatch({
+            type: types.AUTH_INVALID_REG_INPUT,
+            payload: { errors }
+        });
+
+    } else {
+        
         delete regData.errors;
-        await APIQuery.RegNewUser(regData);
+
+        try {
+            const response = await APIQuery.RegNewUser(regData);
+            return dispatch({ type: types.AUTH_REG_SUCCESS });
+
+        } catch (error) {
+            return dispatch({
+                type: types.AUTH_REG_ERROR,
+                payload: {
+                    errorMessage: error.response ? error.response.data.message : error
+                }
+            });
+        }
     }
 
 }

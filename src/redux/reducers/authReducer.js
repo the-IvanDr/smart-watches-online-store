@@ -9,32 +9,39 @@ const initialState = {
         orders: []
     },
 
-    inputs: {
-        registerFields: {
+    forms: {
+        register: {
             fName: 'Иван',
             lName: 'Дрыга',
             mName: 'Андреевич',
             email: 'driga.ya27@gmail.com',
             password: 'LhsueyDfYbZf123123123$$$',
+            confirmPassword: 'LhsueyDfYbZf123123123$$$',
             errors: {
+                main: '',
                 fName: '',
                 lName: '',
                 mName: '',
                 email: '',
-                password: ''
-            }
+                password: '',
+                confirmPassword: ''
+            },
+            success: false
         },
 
-        loginFields: {
+        login: {
             email: '',
             password: '',
             errors: {
+                main: '',
                 email: '',
                 password: ''
-            }
+            },
+            success: false
         }
     }
 };
+
 
 export default function accountReducer(state = initialState, action) {
     switch (action.type) {
@@ -42,14 +49,14 @@ export default function accountReducer(state = initialState, action) {
             console.log('INPUTS_REG_CHANGE: ', action);
             return {
                 authData: state.authData,
-                
-                inputs: {
-                    loginFields: state.inputs.loginFields,
-                    registerFields: {
-                        ...state.inputs.registerFields,
+
+                forms: {
+                    login: state.forms.login,
+                    register: {
+                        ...state.forms.register,
                         [action.payload.name]: action.payload.value,
                         errors: {
-                            ...state.inputs.registerFields.errors,
+                            ...state.forms.register.errors,
                             [action.payload.name]: ''
                         }
                     }
@@ -62,13 +69,13 @@ export default function accountReducer(state = initialState, action) {
             return {
                 authData: state.authData,
 
-                inputs:{
-                    registerFields: state.inputs.registerFields,
-                    loginFields: {
-                        ...state.inputs.loginFields,
+                forms: {
+                    register: state.forms.register,
+                    login: {
+                        ...state.forms.login,
                         [action.payload.name]: action.payload.value,
                         errors: {
-                            ...state.inputs.loginFields.errors,
+                            ...state.forms.login.errors,
                             [action.payload.name]: ''
                         }
                     }
@@ -77,18 +84,65 @@ export default function accountReducer(state = initialState, action) {
             }
 
         case types.AUTH_INVALID_REG_INPUT:
-            console.log('AUTH_INVALID_INPUT');
+            console.log('AUTH_INVALID_REG_INPUT');
             return {
                 ...state,
-                inputs: {
-                    ...state.inputs,
-                    registerFields: {
-                        ...state.inputs.registerFields,
+                forms: {
+                    ...state.forms,
+                    register: {
+                        ...state.forms.register,
                         errors: action.payload.errors
                     }
                 }
             }
-        
+
+        case types.AUTH_INVALID_LOG_INPUT:
+            console.log('AUTH_INVALID_LOG_INPUT');
+            return {
+                ...state,
+                forms: {
+                    ...state.forms,
+                    login: {
+                        ...state.forms.login,
+                        errors: action.payload.errors
+                    }
+                }
+            }
+
+        case types.AUTH_REG_ERROR:
+            console.log('AUTH_REG_ERROR');
+            return {
+                ...state,
+                forms: {
+                    ...state.forms,
+                    register: {
+                        ...state.forms.register,
+                        errors: {
+                            ...state.forms.register.errors,
+                            main: action.payload.errorMessage
+                        }
+                    }
+                }
+            }
+
+        case types.AUTH_REG_SUCCESS:
+            console.log('AUTH_REG_SUCCESS');
+            return {
+                ...state,
+                forms: {
+                    ...state.forms,
+                    register: {
+                        ...state.forms.register,
+                        errors: {
+                            ...state.forms.register.errors,
+                            main: ''
+                        },
+                        success: true
+                    }
+                }
+            }
+
+
         default: return state;
     }
 }
