@@ -16,11 +16,11 @@ export default function AdaptiveAuthorization({ isActive, closeAuthorization, Au
 
 
     const RegSubmitHandler = () => {
-        dispatch(registration(registerForm));
+        dispatch(registration({ ...registerForm }));
     }
 
     const LogSubmitHandler = () => {
-        dispatch(login(loginForm));
+        dispatch(login({ ...loginForm }));
     }
 
 
@@ -28,6 +28,12 @@ export default function AdaptiveAuthorization({ isActive, closeAuthorization, Au
     // LOGIN TAB COMPONENT
     const LoginTab = (
         <div className='AdaptiveAuthorization__login'>
+
+            {
+                loginForm.errors.main &&
+                <div className='Authorization__main-error-msg'>{loginForm.errors.main}</div>
+            }
+
             <div className='AdaptiveAuthorization__input-wrapper'>
                 <i className="fa fa-at" aria-hidden="true" />
                 <input className={clsx(loginForm.errors.email && 'error')} name='email' type="email" placeholder="Эл. почта"

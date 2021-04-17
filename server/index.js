@@ -10,6 +10,7 @@ app.use(express.json());
 
 // API ROUTES (:ENDPOINTS)
 app.use('/api/auth', require('./routes/auth.router'));
+app.use('/api/user/:jwt', require('./routes/user.router'));
 
 
 

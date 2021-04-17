@@ -1,7 +1,4 @@
-// import React from 'react';
-// import App from 'next/app';
 import { Provider } from 'react-redux';
-// import { createWrapper } from 'next-redux-wrapper';
 import store from '../src/redux/store.js';
 
 import '../src/styles/normalize.css';
@@ -19,18 +16,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-// class MyApp extends App {
-//     render() {
-//         const { Component, pageProps } = this.props;
-//         return (
-//             <Provider store={store}>
-//                 <Component {...pageProps}></Component>
-//             </Provider>
-//         )
-//     }
-// }
-
-// const makestore = () => store;
-// const wrapper = createWrapper(makestore);
-// export default wrapper.withRedux(MyApp);

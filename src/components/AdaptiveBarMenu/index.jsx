@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from './../../redux/actions/accountActions';
 import clsx from 'clsx';
 
 import Substrate from '../Substrate';
@@ -10,6 +12,9 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
     const [isCallReqActive, setIsCallReqActive] = useState(false);
     const [isAuthorizationActive, setIsAuthorizationActive] = useState(false);
 
+    const isAuth = !!(useSelector(state => state.auth.authData.token));
+    const dispatch = useDispatch();
+
     const MainMenu_ref = useRef();
     const CallReqBlock_ref = useRef();
     const Authorization_ref = useRef();
@@ -18,12 +23,19 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
         MainMenu_ref.current.style.overflowY = isCatalogActive || isCallReqActive || isAuthorizationActive ? 'hidden' : 'auto';
     }, [isCatalogActive, isCallReqActive, isAuthorizationActive]);
 
+
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
+
+
     const showCallReqBlock = () => {
         CallReqBlock_ref.current.style.top = MainMenu_ref.current.scrollTop + 'px';
         setIsCallReqActive(true);
     }
 
     const showAuthorizationBlock = () => {
+        if (isAuth) return;
         Authorization_ref.current.style.top = MainMenu_ref.current.scrollTop + 'px';
         setIsAuthorizationActive(true);
     }
@@ -63,8 +75,11 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
                         <li><a href='/'>Мой профиль</a></li>
                         <li><a href='/'>Мои заказы</a></li>
                         <li>
-                            {/* <a href='/'>Выйти</a> */}
-                            <button onClick={showAuthorizationBlock}>Войти</button>
+                            {
+                                isAuth
+                                    ? <button onClick={logoutHandler}>Выйти</button>
+                                    : <button onClick={showAuthorizationBlock}>Войти</button>
+                            }
                             <i aria-hidden className="fas fa-sign-out-alt" />
                         </li>
 
@@ -162,7 +177,7 @@ export default function AdaptiveBarMenu({ isActive, toggleMenu }) {
                 <AdaptiveAuthorization
                     isActive={isAuthorizationActive}
                     closeAuthorization={() => setIsAuthorizationActive(false)}
-                    AuthRef = {Authorization_ref}
+                    AuthRef={Authorization_ref}
                 />
             </div>
         </>

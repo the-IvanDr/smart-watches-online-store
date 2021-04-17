@@ -67,22 +67,42 @@ const LogValidation = (logData) => {
 }
 
 
+
 export const login = (logData) => async dispatch => {
     const [isValid, errors] = LogValidation(logData);
     if (!isValid) {
         return dispatch({
             type: types.AUTH_INVALID_LOG_INPUT,
-            payload: {
-                errors
-            }
+            payload: { errors }
         });
+
     } else {
-        const data = { ...logData };
-        delete data.errors;
-        await APIQuery.LoginNewUser(data);
+
+        delete logData.errors;
+
+        try {
+            const response = await APIQuery.LoginNewUser(logData);
+
+            if (response.data.success) {
+                return dispatch({
+                    type: types.AUTH_LOG_SUCCESS,
+                    payload: { 
+                        token: response.data.token,
+                        userData: response.data.userData            
+                    }
+                });
+            } else throw new Error(response.data.message);
+
+        } catch (error) {
+            return dispatch({
+                type: types.AUTH_LOG_ERROR,
+                payload: {
+                    errorMessage: error.response ? error.response.data.message : error.message
+                }
+            });
+        }
     }
 }
-
 
 export const registration = (regData) => async dispatch => {
     const [isValid, errors] = RegValidation(regData);
@@ -95,21 +115,41 @@ export const registration = (regData) => async dispatch => {
         });
 
     } else {
-        
+
         delete regData.errors;
 
         try {
             const response = await APIQuery.RegNewUser(regData);
-            return dispatch({ type: types.AUTH_REG_SUCCESS });
+
+            if (response.data.success) {
+                return dispatch({
+                    type: types.AUTH_REG_SUCCESS,
+                    payload: { 
+                        token: response.data.token,
+                        userData: response.data.userData
+                    }
+                });
+            } else throw new Error(response.data.message);
 
         } catch (error) {
             return dispatch({
                 type: types.AUTH_REG_ERROR,
                 payload: {
-                    errorMessage: error.response ? error.response.data.message : error
+                    errorMessage: error.response ? error.response.data.message : error.message
                 }
             });
         }
     }
 
+}
+
+export const logout = () => {
+    return { type: types.AUTH_LOGOUT }
+}
+
+
+// maybe delete this?
+export const getUserData = (token) => async dispatch => {
+    const response = await APIQuery.getUserData(token);
+    console.log("USER DATA: ", response.data);
 }

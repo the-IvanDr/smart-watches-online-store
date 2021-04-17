@@ -20,7 +20,7 @@ export default function Authorization({ isActive, toggleAuthorization }) {
     }
 
     const LogSubmitHandler = () => {
-        dispatch(login(loginForm));
+        dispatch(login({ ...loginForm }));
     }
 
 
@@ -33,6 +33,12 @@ export default function Authorization({ isActive, toggleAuthorization }) {
     // LOGIN TAB COMOPNENT
     const LoginTab = (
         <div className='Authorization__login'>
+
+            {
+                loginForm.errors.main &&
+                <div className='Authorization__main-error-msg'>{loginForm.errors.main}</div>
+            }
+
             <div className='Authorization__input-wrapper'>
                 <div className='Authorization__input-wrapper__label required'>Эл. почта</div>
                 <input className={clsx(loginForm.errors.email && 'error')} name='email' type='email' value={loginForm.email} onChange={(ev) => dispatch(LogChangeHandler(ev))} />
@@ -201,7 +207,7 @@ export default function Authorization({ isActive, toggleAuthorization }) {
                     <p>Пожалуйста, подтвердите свой e-mail адресс. На указанный вами e-mail адресс было отправленно письмо для подтверждения.</p>
                 </div>
                 {/* ====================== REGISTRATION SUCCESS MESSAGE END ===================== */}
-                
+
 
             </div>
         </div>

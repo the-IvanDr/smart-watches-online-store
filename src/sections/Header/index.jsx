@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from './../../redux/actions/accountActions';
+
 
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -18,6 +21,15 @@ export default function Header(props) {
     const [isCartActive, setIsCartActive] = useState(false);
     const [isAuthorizationActive, setIsAuthorizationActive] = useState(false);
 
+    const isAuth = !!(useSelector(state => state.auth.authData.token));
+    const authData = useSelector(state => state.auth.authData);
+    const dispatch = useDispatch();
+
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    }
+
     const toggleMenu = () => {
         setIsAdaptMenuActive(prev => !prev);
         document.body.style.overflow = !isAdaptMenuActive ? 'hidden' : 'auto';
@@ -33,9 +45,17 @@ export default function Header(props) {
     }
 
     const toggleAuthorization = () => {
+        if (!isAuthorizationActive && isAuth) return;
         setIsAuthorizationActive(prev => !prev);
         document.body.style.overflow = !isAuthorizationActive ? 'hidden' : 'auto';
     }
+
+    useEffect(() => {
+        if (isAuth && isAuthorizationActive) {
+            setIsAuthorizationActive(false);
+            document.body.style.overflow = 'auto';
+        }
+    }, [isAuth]);
 
     return (
         <div className={clsx('Header', isYellow && 'Header_yellow')}>
@@ -85,7 +105,7 @@ export default function Header(props) {
                 <div className='Header__acc-menu'>
                     <button className='Header__acc-menu__desire-list'>
                         <i aria-hidden className="far fa-heart" />
-                        <span>2</span>
+                        {/* <span>2</span> */}
                     </button>
 
                     {/*================= Auth Menu START =======================*/}
@@ -95,16 +115,21 @@ export default function Header(props) {
                         onMouseEnter={() => setIsAuthDropDownMenuActive(true)}
                         onMouseLeave={() => setIsAuthDropDownMenuActive(false)}
                     >
-                        <i aria-hidden className="fas fa-user" />
+                        {
+                            isAuth
+                                ? `${authData.fullName.fName[0]}${authData.fullName.lName[0]}`
+                                : <i aria-hidden className="fas fa-user" />
+                        }
+
                         <div className={clsx(
                             'Header__acc-menu__auth__drop-down-menu',
-                            isAuthDropDownMenuActive && 'active'
+                            (isAuthDropDownMenuActive && isAuth) && 'active'
                         )}>
                             <ul>
                                 <li><a href='/'>Личные данные</a></li>
                                 <li><a href='/'>Заказы</a></li>
                                 <li><a href='/'>Список желаний</a><i aria-hidden className="fas fa-heart" /></li>
-                                <li><a href='/'>Выйти</a></li>
+                                <li><button onClick={logoutHandler}>Выйти</button></li>
                             </ul>
                         </div>
                     </div>
