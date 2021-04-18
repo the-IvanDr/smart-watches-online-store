@@ -15,7 +15,9 @@ export default function WhomBanner(props) {
 
     useEffect(() => {
         setSlideWidth(slider_anchor_ref.current.clientWidth)
-        setInterval(() => setActiveSlide(prev => !prev), CHANGE_INTERVAL);
+        const timerId = setInterval(() => setActiveSlide(prev => !prev), CHANGE_INTERVAL);
+
+        return function () { clearInterval(timerId); }
     }, []);
 
     // Прокрутка слайдера на активный слайд

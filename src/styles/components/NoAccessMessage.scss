@@ -1,0 +1,17 @@
+.NoAccessMessage{
+    margin: 180px auto;
+    padding: 20px;
+    width: 500px;
+    background: rgba(252, 255, 24, .2);
+    border-radius: 5px;
+    h3{
+        margin: 0 0 20px 0;
+        font-size: 25px;
+    }
+
+    a{
+        // text-decoration: none;
+        color: blue;
+        font-weight: 500;
+    }
+}

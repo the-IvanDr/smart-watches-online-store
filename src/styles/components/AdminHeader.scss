@@ -1,0 +1,46 @@
+.AdminHeader {
+    background: $admin-color;
+    box-shadow: 4px 2px 8px 0px rgba(34, 60, 80, 0.2);
+
+    &__top {
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            font-weight: 500;
+            font-size: 16px;
+            color: #000;
+        }
+    }
+
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0px 20px 0px 0px;
+        background: #fff;
+    }
+
+    &__fields {
+        display: flex;
+        a {
+            display: block;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+            color: $admin-color;
+            font-weight: 500;
+
+            &.active {
+                position: relative;
+                background: $admin-color;
+                color: #fff;
+            }
+        }
+    }
+}

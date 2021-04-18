@@ -8,7 +8,3 @@ export async function RegNewUser(userData) {
 export async function LoginNewUser(userData) {
     return await axios.post('auth/login', userData);
 }
-
-export async function getUserData(token) {
-    return await axios.get(`user/${token}/getdata`);
-}

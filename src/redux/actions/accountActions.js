@@ -70,6 +70,7 @@ const LogValidation = (logData) => {
 
 export const login = (logData) => async dispatch => {
     const [isValid, errors] = LogValidation(logData);
+
     if (!isValid) {
         return dispatch({
             type: types.AUTH_INVALID_LOG_INPUT,
@@ -145,11 +146,4 @@ export const registration = (regData) => async dispatch => {
 
 export const logout = () => {
     return { type: types.AUTH_LOGOUT }
-}
-
-
-// maybe delete this?
-export const getUserData = (token) => async dispatch => {
-    const response = await APIQuery.getUserData(token);
-    console.log("USER DATA: ", response.data);
 }

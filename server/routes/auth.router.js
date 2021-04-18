@@ -31,6 +31,4 @@ router.post(
     AuthController.loginUser
 );
 
-
-
 module.exports = router;

@@ -129,6 +129,7 @@ export default function Header(props) {
                                 <li><a href='/'>Личные данные</a></li>
                                 <li><a href='/'>Заказы</a></li>
                                 <li><a href='/'>Список желаний</a><i aria-hidden className="fas fa-heart" /></li>
+                                {authData.role === 'ADMIN' && <li><Link href='/administrator'><a>Админ. панель</a></Link></li>}
                                 <li><button onClick={logoutHandler}>Выйти</button></li>
                             </ul>
                         </div>

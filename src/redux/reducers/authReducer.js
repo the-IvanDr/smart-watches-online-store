@@ -81,9 +81,6 @@ export default function accountReducer(state = initialState, action) {
         case types.AUTH_LOGOUT:
             return AUTH_LOGOUT_Handler(state);
 
-        case types.USER_GET_DATA:
-            console.log('USER_GET_DATA');
-            return state;
 
 
         default: return state;
