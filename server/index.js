@@ -8,6 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Static files directory
+app.use(express.static('static'));
+
 // API ROUTES (:ENDPOINTS)
 app.use('/api/auth', require('./routes/auth.router'));
 app.use('/api/admin', require('./routes/admin.router'));

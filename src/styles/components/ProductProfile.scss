@@ -334,11 +334,11 @@
             margin: 0;
         }
 
-        &__adapt-close-btn{
+        &__adapt-close-btn {
             display: none;
         }
 
-        &__adapt-open-btn{
+        &__adapt-open-btn {
             display: none;
             margin-top: 20px;
             padding: 13px;
@@ -349,14 +349,14 @@
             font-weight: 500;
             color: #fff;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
 
-            &:active, &:focus{
+            &:active,
+            &:focus {
                 outline: none;
             }
-
         }
     }
 
@@ -369,6 +369,13 @@
             padding: 0;
             margin: 0;
             margin-top: 15px;
+        }
+
+        h3 {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 8px;
         }
 
         img {
@@ -387,12 +394,6 @@
             margin: 0;
             padding: 0;
             list-style-type: none;
-            h4 {
-                font-size: 14px;
-                margin: 0;
-                padding: 0;
-                margin-bottom: 8px;
-            }
 
             li {
                 position: relative;
@@ -565,11 +566,11 @@
             border: none;
             margin-top: 0px;
 
-            &__title{
+            &__title {
                 font-size: 22px;
                 font-weight: 500;
 
-                &.-modal-title{
+                &.-modal-title {
                     box-sizing: border-box;
                     position: fixed;
                     width: inherit;
@@ -584,33 +585,34 @@
                     font-size: 20px;
                     padding-left: 15px;
 
-                    button{
+                    button {
                         height: 100%;
                         padding: 0 15px;
                         background: none;
                         border: none;
 
-                        &:hover{
+                        &:hover {
                             cursor: pointer;
                         }
 
-                        &:active, &:focus{
+                        &:active,
+                        &:focus {
                             outline: none;
                         }
                     }
-                    
                 }
             }
 
-            &__adapt-open-btn, &__adapt-close-btn{
+            &__adapt-open-btn,
+            &__adapt-close-btn {
                 display: block;
             }
 
-            &__adapt-wrapper{
+            &__adapt-wrapper {
                 padding: $adapt-menu-title-height 15px 15px 15px;
             }
-            
-            &__modal{
+
+            &__modal {
                 overflow-y: auto;
                 background: #fff;
                 position: fixed;
@@ -618,22 +620,22 @@
                 left: 0;
                 z-index: 105;
                 width: 100%;
-                height: 100%;      
+                height: 100%;
 
                 transition: top $menu-transition-time-1;
-                
-                &.active{
+
+                &.active {
                     top: 0;
                 }
             }
         }
 
-        &__tabs{
+        &__tabs {
             margin-top: 25px;
             padding-bottom: 18px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-            &__titles{
+            &__titles {
                 justify-content: center;
             }
         }
@@ -648,8 +650,8 @@
     }
 }
 
-@media (max-width: 700px){
-    .ProductProfile{
+@media (max-width: 700px) {
+    .ProductProfile {
         &__title {
             font-size: 22px;
         }
@@ -660,14 +662,14 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-    
+
             &__flex-wrapper {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
             }
-    
+
             &__deal-table {
                 overflow: hidden;
                 width: 100%;
@@ -679,8 +681,8 @@
             }
         }
 
-        &__description{
-            img{
+        &__description {
+            img {
                 width: 100%;
             }
         }

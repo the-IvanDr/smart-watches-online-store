@@ -41,8 +41,8 @@ export default function ProductDescription() {
                     <h4 className='ProductProfile__description__title'>Спортивные часы Xiaomi Amazfit Verge</h4>
                     <p>Xiaomi Amazfit Verge – умные часы, которые получили 11 спортивных режимов. С ними вам не придется доставать телефон, чтобы посмотреть уведомления, воспользоваться картой или принять телефонный звонок.</p>
 
+                    <h3>Особенности:</h3>
                     <ul>
-                        <h4>Особенности:</h4>
                         <li>Сенсорный 1.3” AMOLED дисплей</li>
                         <li>11 спортивных режимов</li>
                         <li>Датчик геопозиционирования GPS</li>
