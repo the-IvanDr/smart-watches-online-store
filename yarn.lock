@@ -202,6 +202,11 @@ ast-types@0.13.2:
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.13.2.tgz#df39b677a911a83f3a049644fb74fdded23cea48"
   integrity sha512-uWMHxJxtfj/1oZClOxDEV1sQ1HCDkA4MG8Gr69KKeBjEVH0R84WlejZ0y2DcwyBlpAEMltmVYkVgqfLFb2oyiA==
 
+autobind-decorator@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-2.4.0.tgz#ea9e1c98708cf3b5b356f7cf9f10f265ff18239c"
+  integrity sha512-OGYhWUO72V6DafbF8PM8rm3EPbfuyMZcJhtm5/n26IDwO18pohE4eNazLoCGhPiXOCD0gEGmrbU3849QvM8bbw==
+
 axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
@@ -827,6 +832,20 @@ jest-worker@24.9.0:
   dependencies:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
+
+jodit-react@^1.0.82:
+  version "1.0.82"
+  resolved "https://registry.yarnpkg.com/jodit-react/-/jodit-react-1.0.82.tgz#beff773bf43384bc643929becf02ac48b701f98d"
+  integrity sha512-pEUJkWD803UkxNgI9XfehJdmG+x2mIFC8d2Of4WRO7LgJy+dW8SB1YkhcuKBvDGO+rp5NI4VZHL3/a8RWyKwUw==
+  dependencies:
+    jodit "^3.6.1"
+
+jodit@^3.6.1:
+  version "3.6.9"
+  resolved "https://registry.yarnpkg.com/jodit/-/jodit-3.6.9.tgz#160e8ba1bfdeb8fb4255d367aa75fc7a85caaaea"
+  integrity sha512-QzQe9qsiOMpgdJQjd+FK4LXeiHMprP3W0X6WSoJMN7zQrQH8uNcB1uN6JwFBrMhVvsQRTeBd9gbOT2X2MYjVEQ==
+  dependencies:
+    autobind-decorator "^2.4.0"
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

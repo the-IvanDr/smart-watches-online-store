@@ -3,6 +3,6 @@ const { check } = require('express-validator');
 const AdminController = require('../controllers/AdminController');
 const router = Router();
 
-router.get('/accesstocreateadmin', AdminController.getAccessToCreateAdmin);
+router.post('/product-create-set-description-images', AdminController.productCreateSetDescriptionImages);
 
 module.exports = router;

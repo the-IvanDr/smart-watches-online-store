@@ -37,7 +37,7 @@ export default function ProductDescription() {
                     </button>
                 </h4>
                 <div className='ProductProfile__description__main-wrapper'>
-
+                
                     <h4 className='ProductProfile__description__title'>Спортивные часы Xiaomi Amazfit Verge</h4>
                     <p>Xiaomi Amazfit Verge – умные часы, которые получили 11 спортивных режимов. С ними вам не придется доставать телефон, чтобы посмотреть уведомления, воспользоваться картой или принять телефонный звонок.</p>
 

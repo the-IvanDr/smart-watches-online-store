@@ -20,3 +20,7 @@ export function changeProductInputs(field, value) {
         payload: { field, value }
     }
 }
+
+export function loadDescriptionImages(){
+    
+}

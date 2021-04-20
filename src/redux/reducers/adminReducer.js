@@ -36,7 +36,40 @@ const initialState = {
                 }
             ],
             isHit: false,
-            isNovelty: false
+            isNovelty: false,
+
+            // details
+            series: '',
+            os: '',
+            osCompatibility: '',
+            watchShape: '',
+            bodyMaterial: '',
+            strapMaterial: '',
+            bodyColor: '',
+            strapColor: '',
+            displayType: '',
+            displayDiagonal: '',
+            displayResolution: '',
+            monitoring: '',
+            sensors: '',
+            batteryType: '',
+            batteryCapacity: '',
+            standbyTime: '',
+            dimensions: '',
+            weight: 0.0,
+            equipment: '',
+            features: '',
+            isTouchDisplay: false,
+            isReplaceableStrap: false,
+            isStrapLengthAdjusment: false,
+            isMoistureAndDustProtection: false,
+            isPhoneCalls: false,
+            isGpsSupport: false,
+
+            description: {
+                text: '',
+                imagesSrc: []
+            }
         }
     }
 }

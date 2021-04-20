@@ -1,16 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import MainProductInfo from './MainProductInfo';
 
 import ProductPhotoSelector from './ProductPhotoSelector';
+import MainProductInfo from './MainProductInfo';
+import ProductDetails from './ProductDetails';
+import DescriptionEditor from './DescriptionEditor';
 
 
-export default function AdminProductCreator() {    
+export default function AdminProductCreator() {
 
     return (
         <div className='AdminProductCreator'>
             <ProductPhotoSelector />
-            <MainProductInfo />
+            {/* <MainProductInfo />
+            <ProductDetails /> */}
+            <DescriptionEditor />
         </div>
     )
 }
