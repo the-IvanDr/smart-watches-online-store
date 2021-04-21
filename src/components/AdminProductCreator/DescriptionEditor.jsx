@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeProductInputs } from './../../redux/actions/adminActions';
+import { changeProductInputs, uploadDescriptionImages, removeDescriptionImage } from './../../redux/actions/adminActions';
 
-// import dynamic from 'next/dynamic'
-// const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
+import dynamic from 'next/dynamic'
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 
 export default function DescriptionEditor() {
     const description = useSelector(state => state.admin.products.createForm.description);
+    const jwt = useSelector(state => state.auth.authData.token);
     const dispatch = useDispatch();
 
     const JoditConfig = {
@@ -46,7 +47,7 @@ export default function DescriptionEditor() {
         ]
     }
 
-    const onBlur = (newContent) => {
+    const setDescription = (newContent) => {
         // Some code from stackoverflow
         String.prototype.replaceAll = function (search, replacement) {
             var target = this;
@@ -58,30 +59,36 @@ export default function DescriptionEditor() {
         dispatch(changeProductInputs('description', { ...description, text: final }));
     }
 
-    const loadImagesHandler = (event) => {
-        
+
+    const uploadImagesHandler = (event) => {
+        dispatch(uploadDescriptionImages(jwt, event.target.files));
     }
 
+    const removeImageHandler = (src) => {
+        dispatch(removeDescriptionImage(jwt, src));
+    }
 
     const AddImageToDescriptionText = (event) => {
-        
+        const src = event.target.src;
+        const newDescription = description.text + `<img src="${src}" alt="product-description" />`
+        setDescription(newDescription);
     }
+
 
     const PhotoListFromDescriptionImages = () => {
         return description.imagesSrc.map((src, index) => {
             return (
                 <div key={`descr-image-${index}`} className='AdminProductCreator__photos-list__item'>
-                    <button onClick={() => console.log('delete: ', index)}>✖</button>
+                    <button onClick={() => removeImageHandler(src)}>✖</button>
                     <img onClick={AddImageToDescriptionText} src={src} alt='image' />
                 </div>
             )
         })
     }
 
-
     const PhotoLoadButton = (
         <div className='AdminProductCreator__photo-loader' style={{ marginTop: '10px' }}>
-            <input id='load-img-descr' type='file' accept='.jpg, .jpeg, .png, .webp' multiple onChange={loadImagesHandler} />
+            <input id='load-img-descr' type='file' accept='.jpg, .jpeg, .png, .webp' multiple onChange={uploadImagesHandler} />
             <label htmlFor='load-img-descr'>
                 <span className='AdminProductCreator__photo-loader__button'>Загрузить фото</span>
             </label>
@@ -106,13 +113,13 @@ export default function DescriptionEditor() {
             }
 
 
-            {/* <JoditEditor
+            <JoditEditor
                 value={description.text}
                 config={JoditConfig}
                 tabIndex={1} // tabIndex of textarea
-                onBlur={onBlur} // preferred to use only this option to update the content for performance reasons
+                onBlur={setDescription} // preferred to use only this option to update the content for performance reasons
                 onChange={newContent => { }}
-            /> */}
+            />
         </div >
     );
 }

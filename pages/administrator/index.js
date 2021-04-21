@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
+import GoUp from './../../src/components/GoUp/index';
 import AdminHeader from '../../src/sections/AdminHeader';
 import AdminProductsMenu from './../../src/sections/AdminProductsMenu/index';
 
@@ -25,6 +26,8 @@ export default function AdminPannel() {
 
     return (
         <div>
+            <GoUp />
+            
             <AdminHeader />
             {tabs.users && "USERS MENU"}
             {tabs.products && <AdminProductsMenu />}

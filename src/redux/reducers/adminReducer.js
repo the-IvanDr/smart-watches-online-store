@@ -77,6 +77,9 @@ const initialState = {
 
 export default function adminReducer(state = initialState, action) {
     switch (action.type) {
+        case types.ADMIN_ERROR_ALERT:
+            return ADMIN_ERROR_ALERT_Handler(state, action);
+
         case types.ADMIN_HEADER_CHANGE_TAB:
             return ADMIN_HEADER_CHANGE_TAB_Handler(state, action);
 
@@ -86,8 +89,26 @@ export default function adminReducer(state = initialState, action) {
         case types.ADMIN_PRODUCTS_FORM_CHANGE:
             return ADMIN_PRODUCTS_FORM_CHANGE_Handler(state, action);
 
+        case types.ADMIN_PRODUCTS_FORM_DESCRIPTION_UPLOAD_IMAGES:
+            return ADMIN_PRODUCTS_FORM_DESCRIPTION_UPLOAD_IMAGES_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES:
+            return ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES_Handler(state, action);
+
         default: return state;
     }
+}
+
+const ADMIN_ERROR_ALERT_Handler = (state, action) => {
+    console.log('ADMIN_ERROR_ALERT', action.payload);
+
+    const ERROR = action.payload.error;
+    const MESSAGE = action.payload.message;
+
+    console.log("Error: ", ERROR.message);
+    alert(MESSAGE);
+
+    return state;
 }
 
 const ADMIN_HEADER_CHANGE_TAB_Handler = (state, action) => {
@@ -145,6 +166,52 @@ const ADMIN_PRODUCTS_FORM_CHANGE_Handler = (state, action) => {
             createForm: {
                 ...state.products.createForm,
                 [FIELD]: VALUE
+            }
+        }
+    };
+}
+
+const ADMIN_PRODUCTS_FORM_DESCRIPTION_UPLOAD_IMAGES_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_FORM_DESCRIPTION_UPLOAD_IMAGES', action.payload);
+
+    const IMAGE_SOURCES = action.payload.sources;
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            createForm: {
+                ...state.products.createForm,
+                description: {
+                    ...state.products.createForm.description,
+                    imagesSrc: [...state.products.createForm.description.imagesSrc, ...IMAGE_SOURCES]
+                }
+            }
+        }
+
+    }
+}
+
+const ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES', action.payload);
+
+    const IMAGE_SRC = action.payload.imageSrc;
+    const IMAGES_SRCS = state.products.createForm.description.imagesSrc.filter(src => src != IMAGE_SRC);
+
+    // regexp for <img />:       "<img[^>]* src=\"([^\"]*)\"[^>]*>"
+    const newDescription = state.products.createForm.description.text
+        .replace(new RegExp(`<img[^>]* src=\"${IMAGE_SRC}\"[^>]*>`, 'g'), '');
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            createForm: {
+                ...state.products.createForm,
+                description: {
+                    text: newDescription,
+                    imagesSrc: IMAGES_SRCS
+                }
             }
         }
     };
