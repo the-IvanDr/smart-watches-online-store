@@ -8,8 +8,8 @@ export default function SubmitButton(){
     }
 
     return (
-        <div className='AdminProductCreator__field'>
-            <button className='AdminProductCreator__submit-btn' onClick={submitHandler}>Отправить</button>
+        <div className='AdminPannel__field'>
+            <button className='AdminPannel__submit-btn' onClick={submitHandler}>Отправить</button>
         </div>
     )
 }

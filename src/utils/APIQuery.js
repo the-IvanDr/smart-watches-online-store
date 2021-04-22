@@ -13,6 +13,20 @@ export async function LoginNewUser(userData) {
 }
 
 
+export async function UploadMainImage(jwt, file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    return await axios.post(`admin/${jwt}/product-upload-main-image`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
+
+export async function RemoveMainImage(jwt, imageSrc){
+    return await axios.post(`admin/${jwt}/product-remove-main-image`, imageSrc);
+}
+
 export async function UploadDescriptionImages(jwt, files) {
     const formData = new FormData();
 
@@ -27,6 +41,6 @@ export async function UploadDescriptionImages(jwt, files) {
     });
 }
 
-export async function RemoveDescriptionImage(jwt, imageSrc){
+export async function RemoveDescriptionImage(jwt, imageSrc) {
     return axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
 }

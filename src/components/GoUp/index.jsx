@@ -9,7 +9,9 @@ export default function GoUp(props) {
     // Обработка скрола (скрыть/показать кнопку)
     useEffect(() => {
         document.addEventListener('scroll', scrollHandler);
-        return document.addEventListener('scroll', scrollHandler);
+        return () => {
+            document.addEventListener('scroll', scrollHandler);
+        }
     });
 
     // Показать/скрыть кнопку в зависимости от состояния isVisible

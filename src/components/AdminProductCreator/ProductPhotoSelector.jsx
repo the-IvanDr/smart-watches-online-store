@@ -1,55 +1,41 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addProductImage } from '../../redux/actions/adminActions';
-
+import { uploadProductImage, removeProductImage } from '../../redux/actions/adminActions';
+import { PhotoLoadButton } from '../AdminPannel';
 
 export default function ProductPhotoSelector() {
-    const productImagePreviewRef = useRef();
-
+    const jwt = useSelector(state => state.auth.authData.token);
     const form = useSelector(state => state.admin.products.createForm);
     const dispatch = useDispatch();
 
 
-    // After seelcting a product image, read the selected file and send it as src to <img />
-    useEffect(() => {
-        if (!form.photos.length || typeof form.photos[0] === 'undefined') return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            productImagePreviewRef.current.setAttribute('src', e.target.result);
-        }
-
-        reader.readAsDataURL(form.photos[0]);
-
-    }, [form]);
-
-
-    const loadProductImage = (event) => {
-        dispatch(addProductImage(event.target.files));
+    const uploadProductImageHandler = (event) => {
+        const file = event.target.files[0];
+        dispatch(uploadProductImage(jwt, file));
     }
 
-    const PhotoLoadButton = (
-        <div className='AdminProductCreator__photo-loader'>
-            <input id='load-img' type='file' accept='.jpg, .jpeg, .png, .webp' multiple onChange={loadProductImage} />
-            <label htmlFor='load-img'>
-                <span className='AdminProductCreator__photo-loader__button'>Выбрать фото</span>
-            </label>
-        </div>
-    );
-
-    const ProductImagePreview = (
-        <img ref={productImagePreviewRef} src='' alt='product-preview' />
-    )
+    const removeProductImageHandler = () => {
+        dispatch(removeProductImage(jwt, form.mainImageSrc));
+    }
 
     return (
-        <div className='AdminProductCreator__field'>
-            <div className='AdminProductCreator__field__title'>Фото товара:</div>
+        <div className='AdminPannel__field'>
+            <div className='AdminPannel__field__title'>Фото товара:</div>
 
-            {PhotoLoadButton}
+
             <hr />
 
+            <PhotoLoadButton onChange={uploadProductImageHandler} isMultiple={false} inputId={'main-image-loader'} />
+
             <div className='AdminProductCreator__photos-list'>
-                {!!form.photos.length && ProductImagePreview}
+                {
+                    !!form.mainImageSrc &&
+
+                    <div className='AdminProductCreator__photos-list__item'>
+                        <button onClick={removeProductImageHandler}>✖</button>
+                        <img src={form.mainImageSrc} alt='main-product-image' />
+                    </div>
+                }
             </div>
         </div>
     )

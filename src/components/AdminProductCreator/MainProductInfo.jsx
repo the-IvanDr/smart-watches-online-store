@@ -27,22 +27,22 @@ export default function MainProductInfo() {
 
 
     return (
-        <div className='AdminProductCreator__field'>
-            <div className='AdminProductCreator__field__title'>Основное:</div>
+        <div className='AdminPannel__field'>
+            <div className='AdminPannel__field__title'>Основное:</div>
 
             <hr />
 
-            <div className='AdminProductCreator__input-wrapper'>
+            <div className='AdminPannel__input-wrapper'>
                 <span>Название:</span>
                 <input type='text' name='title' value={form.title} onChange={inputsChangeHandler} />
             </div>
 
-            <div className='AdminProductCreator__input-row-group'>
-                <div className='AdminProductCreator__input-wrapper'>
+            <div className='AdminPannel__input-row-group'>
+                <div className='AdminPannel__input-wrapper'>
                     <span>Цена (грн):</span>
                     <input type='number' name='price' value={form.price} onChange={inputsChangeHandler} />
                 </div>
-                <div className='AdminProductCreator__input-wrapper'>
+                <div className='AdminPannel__input-wrapper'>
                     <span>Скидка %:</span>
                     <input type='number' name='discount' value={form.discount} onChange={inputsChangeHandler} />
                 </div>
@@ -50,8 +50,8 @@ export default function MainProductInfo() {
 
 
             <div style={{ color: 'red' }}>ДОДЕЛАТЬ (выбор типа, бренда)!</div>
-            <div className='AdminProductCreator__input-row-group'>
-                <div className='AdminProductCreator__input-wrapper'>
+            <div className='AdminPannel__input-row-group'>
+                <div className='AdminPannel__input-wrapper'>
                     <span>Тип:</span>
                     <select>
                         <option>Часы</option>
@@ -59,7 +59,7 @@ export default function MainProductInfo() {
                     </select>
                 </div>
 
-                <div className='AdminProductCreator__input-wrapper'>
+                <div className='AdminPannel__input-wrapper'>
                     <span>Бренд:</span>
                     <select>
                         <option>Xiaomi</option>
@@ -69,7 +69,7 @@ export default function MainProductInfo() {
                     </select>
                 </div>
 
-                <div className='AdminProductCreator__input-wrapper'>
+                <div className='AdminPannel__input-wrapper'>
                     <span>Характер:</span>
                     <select name='character' value={form.character.find(item => item.active).name} onChange={selectorsChangeHandler}>
                         <option value={form.character[0].name} >{form.character[0].name}</option>
@@ -79,12 +79,12 @@ export default function MainProductInfo() {
                 </div>
             </div>
 
-            <div className='AdminProductCreator__input-wrapper'>
+            <div className='AdminPannel__input-wrapper'>
                 <span>Маркеры:</span>
-                <div className='AdminProductCreator__input-wrapper__checkbox'>
+                <div className='AdminPannel__input-wrapper__checkbox'>
                     <input type='checkbox' name='isHit' checked={form.isHit} onChange={inputsChangeHandler} /> Хит
                 </div>
-                <div className='AdminProductCreator__input-wrapper__checkbox'>
+                <div className='AdminPannel__input-wrapper__checkbox'>
                     <input type='checkbox' name='isNovelty' checked={form.isNovelty} onChange={inputsChangeHandler} /> Новинка
                 </div>
             </div>

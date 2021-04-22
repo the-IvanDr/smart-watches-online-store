@@ -15,7 +15,7 @@ const initialState = {
 
     products: {
         createForm: {
-            photos: [],
+            mainImageSrc: '',
             title: '',
             price: 0,
             discount: 0,
@@ -83,8 +83,11 @@ export default function adminReducer(state = initialState, action) {
         case types.ADMIN_HEADER_CHANGE_TAB:
             return ADMIN_HEADER_CHANGE_TAB_Handler(state, action);
 
-        case types.ADMIN_PRODUCTS_ADD_PRODUCT_IMAGE:
-            return ADMIN_PRODUCTS_ADD_PRODUCT_IMAGE_Handler(state, action);
+        case types.ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE:
+            return ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_REMOVE_PRODUCT_IMAGE:
+            return ADMIN_PRODUCTS_REMOVE_PRODUCT_IMAGE_Handler(state, action);
 
         case types.ADMIN_PRODUCTS_FORM_CHANGE:
             return ADMIN_PRODUCTS_FORM_CHANGE_Handler(state, action);
@@ -133,13 +136,10 @@ const ADMIN_HEADER_CHANGE_TAB_Handler = (state, action) => {
 
 }
 
-const ADMIN_PRODUCTS_ADD_PRODUCT_IMAGE_Handler = (state, action) => {
-    console.log('ADMIN_PRODUCTS_ADD_PRODUCT_IMAGE', action.payload);
+const ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE', action.payload);
 
-    const IMG_FILE = action.payload.files[0];
-
-    // If file wasn't selected, return previos state
-    if (typeof IMG_FILE === 'undefined') return state;
+    const IMG_SRC = action.payload.src;
 
     return {
         ...state,
@@ -147,7 +147,22 @@ const ADMIN_PRODUCTS_ADD_PRODUCT_IMAGE_Handler = (state, action) => {
             ...state.products,
             createForm: {
                 ...state.products.createForm,
-                photos: [IMG_FILE]
+                mainImageSrc: IMG_SRC
+            }
+        }
+    }
+}
+
+const ADMIN_PRODUCTS_REMOVE_PRODUCT_IMAGE_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_REMOVE_PRODUCT_IMAGE');
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            createForm: {
+                ...state.products.createForm,
+                mainImageSrc: ''
             }
         }
     }

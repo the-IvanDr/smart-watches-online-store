@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import GoUp from './../../src/components/GoUp/index';
 import AdminHeader from '../../src/sections/AdminHeader';
 import AdminProductsMenu from './../../src/sections/AdminProductsMenu/index';
+import AdminBrandsMenu from '../../src/sections/AdminBrandsMenu/AdminBrandsMenu';
 
 
 const isBrowser = typeof window !== 'undefined';
@@ -20,10 +21,6 @@ export default function AdminPannel() {
 
     const tabs = useSelector(state => state.admin.header.tabs);
 
-
-
-
-
     return (
         <div>
             <GoUp />
@@ -32,7 +29,7 @@ export default function AdminPannel() {
             {tabs.users && "USERS MENU"}
             {tabs.products && <AdminProductsMenu />}
             {tabs.orders && 'ORDERS MENU'}
-            {tabs.brands && 'BRANDS MENU'}
+            {tabs.brands && <AdminBrandsMenu />}
             {tabs.types && 'TYPES MENU'}
         </div>
     )

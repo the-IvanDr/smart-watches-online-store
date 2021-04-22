@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeProductInputs, uploadDescriptionImages, removeDescriptionImage } from './../../redux/actions/adminActions';
 
+import { PhotoLoadButton, AdminPannelField } from '../AdminPannel';
+
 import dynamic from 'next/dynamic'
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
@@ -86,21 +88,10 @@ export default function DescriptionEditor() {
         })
     }
 
-    const PhotoLoadButton = (
-        <div className='AdminProductCreator__photo-loader' style={{ marginTop: '10px' }}>
-            <input id='load-img-descr' type='file' accept='.jpg, .jpeg, .png, .webp' multiple onChange={uploadImagesHandler} />
-            <label htmlFor='load-img-descr'>
-                <span className='AdminProductCreator__photo-loader__button'>Загрузить фото</span>
-            </label>
-        </div>
-    );
 
     return (
-        <div className='AdminProductCreator__field'>
-            <div className='AdminProductCreator__field__title'>Описание:</div>
-            <hr />
-
-            {PhotoLoadButton}
+        <AdminPannelField title='Описание'>
+            <PhotoLoadButton onChange={uploadImagesHandler} isMultiple={true} inputId={'descr-image-loader'} />
 
             {
                 !!description.imagesSrc.length &&
@@ -120,6 +111,6 @@ export default function DescriptionEditor() {
                 onBlur={setDescription} // preferred to use only this option to update the content for performance reasons
                 onChange={newContent => { }}
             />
-        </div >
+        </AdminPannelField>
     );
 }
