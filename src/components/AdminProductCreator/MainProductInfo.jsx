@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeProductInputs } from '../../redux/actions/adminActions';
+import { ProductActions } from '../../redux/actions/adminActions';
+
+import { AdminPannelField, AdminInputWrapper, AdminInputRowGroup, AdminSelectorWrapper, AdminCheckboxListWrapper, AdminCheckboxWrapper } from '../AdminPannel';
 
 export default function MainProductInfo() {
     const form = useSelector(state => state.admin.products.createForm);
@@ -10,7 +12,7 @@ export default function MainProductInfo() {
     const inputsChangeHandler = (event) => {
         const fieldName = event.target.name;
         const fieldValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        dispatch(changeProductInputs(fieldName, fieldValue));
+        dispatch(ProductActions.changeInputs(fieldName, fieldValue));
     }
 
     const selectorsChangeHandler = (event) => {
@@ -18,76 +20,42 @@ export default function MainProductInfo() {
         const selectedIndex = event.target.options.selectedIndex;
         const fieldValue = [...form[fieldName]];
         fieldValue.forEach((item, index) => {
-            if(index === selectedIndex) item.active = true;
+            if (index === selectedIndex) item.active = true;
             else item.active = false;
         });
 
-        dispatch(changeProductInputs(fieldName, fieldValue));
+        dispatch(ProductActions.changeInputs(fieldName, fieldValue));
     }
 
 
     return (
-        <div className='AdminPannel__field'>
-            <div className='AdminPannel__field__title'>Основное:</div>
+        <AdminPannelField title='Основное'>
 
-            <hr />
+            <AdminInputWrapper title='Название' type='text' name='title' value={form.title} onChange={inputsChangeHandler} />
 
-            <div className='AdminPannel__input-wrapper'>
-                <span>Название:</span>
-                <input type='text' name='title' value={form.title} onChange={inputsChangeHandler} />
-            </div>
+            <AdminInputRowGroup>
+                <AdminInputWrapper title='Цена (грн)' type='number' name='price' value={form.price} onChange={inputsChangeHandler} />
+                <AdminInputWrapper title='Скидка %' type='number' name='discount' value={form.discount} onChange={inputsChangeHandler} />
+            </AdminInputRowGroup>
 
-            <div className='AdminPannel__input-row-group'>
-                <div className='AdminPannel__input-wrapper'>
-                    <span>Цена (грн):</span>
-                    <input type='number' name='price' value={form.price} onChange={inputsChangeHandler} />
-                </div>
-                <div className='AdminPannel__input-wrapper'>
-                    <span>Скидка %:</span>
-                    <input type='number' name='discount' value={form.discount} onChange={inputsChangeHandler} />
-                </div>
-            </div>
+            <AdminInputRowGroup>
 
+                <AdminSelectorWrapper title='Характер' name='character'
+                    selectArrOfObj={form.character} onChange={selectorsChangeHandler} />
 
-            <div style={{ color: 'red' }}>ДОДЕЛАТЬ (выбор типа, бренда)!</div>
-            <div className='AdminPannel__input-row-group'>
-                <div className='AdminPannel__input-wrapper'>
-                    <span>Тип:</span>
-                    <select>
-                        <option>Часы</option>
-                        <option>Ремень для часов</option>
-                    </select>
-                </div>
+                <AdminSelectorWrapper title='Тип' name='types'
+                    selectArrOfObj={form.types} onChange={selectorsChangeHandler} />
 
-                <div className='AdminPannel__input-wrapper'>
-                    <span>Бренд:</span>
-                    <select>
-                        <option>Xiaomi</option>
-                        <option>Samsung</option>
-                        <option>Apple</option>
-                        <option>Microsoft</option>
-                    </select>
-                </div>
+                <AdminSelectorWrapper title='Бренд' name='brands'
+                    selectArrOfObj={form.brands} onChange={selectorsChangeHandler} />
 
-                <div className='AdminPannel__input-wrapper'>
-                    <span>Характер:</span>
-                    <select name='character' value={form.character.find(item => item.active).name} onChange={selectorsChangeHandler}>
-                        <option value={form.character[0].name} >{form.character[0].name}</option>
-                        <option value={form.character[1].name} >{form.character[1].name}</option>
-                        <option value={form.character[2].name} >{form.character[2].name}</option>
-                    </select>
-                </div>
-            </div>
+            </AdminInputRowGroup>
 
-            <div className='AdminPannel__input-wrapper'>
-                <span>Маркеры:</span>
-                <div className='AdminPannel__input-wrapper__checkbox'>
-                    <input type='checkbox' name='isHit' checked={form.isHit} onChange={inputsChangeHandler} /> Хит
-                </div>
-                <div className='AdminPannel__input-wrapper__checkbox'>
-                    <input type='checkbox' name='isNovelty' checked={form.isNovelty} onChange={inputsChangeHandler} /> Новинка
-                </div>
-            </div>
-        </div>
+            <AdminCheckboxListWrapper title='Маркеры'>
+                <AdminCheckboxWrapper title='Хит' name='isHit' checked={form.isHit} onChange={inputsChangeHandler} />
+                <AdminCheckboxWrapper title='Новинка' name='isNovelty' checked={form.isNovelty} onChange={inputsChangeHandler} />
+            </AdminCheckboxListWrapper>
+
+        </AdminPannelField>
     )
 }

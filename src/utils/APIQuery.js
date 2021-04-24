@@ -12,35 +12,52 @@ export async function LoginNewUser(userData) {
     return await axios.post('auth/login', userData);
 }
 
+export const Products = {
+    uploadMainImage: async function (jwt, file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        return await axios.post(`admin/${jwt}/product-upload-main-image`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+    },
 
-export async function UploadMainImage(jwt, file) {
-    const formData = new FormData();
-    formData.append('image', file);
-    return await axios.post(`admin/${jwt}/product-upload-main-image`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+    uploadDescriptionImages: async function (jwt, files) {
+        const formData = new FormData();
+
+        Array.from(files).forEach((file, index) => {
+            formData.append(`image-${index}`, file);
+        });
+
+        return await axios.post(`admin/${jwt}/product-upload-description-images`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
+
+    removeMainImage: async function (jwt, imageSrc) {
+        return await axios.post(`admin/${jwt}/product-remove-main-image`, imageSrc);
+    },
+
+    removeDescriptionImage: async function (jwt, imageSrc) {
+        return axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
+    }
 }
 
-export async function RemoveMainImage(jwt, imageSrc){
-    return await axios.post(`admin/${jwt}/product-remove-main-image`, imageSrc);
-}
+export const Brands = {
+    uploadImage: async function (jwt, file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        return await axios.post(`admin/${jwt}/brand-upload-image`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+    },
 
-export async function UploadDescriptionImages(jwt, files) {
-    const formData = new FormData();
+    removeImage: async function (jwt, imageSrc) {
+        return await axios.post(`admin/${jwt}/brand-remove-image`, imageSrc);
+    },
 
-    Array.from(files).forEach((file, index) => {
-        formData.append(`image-${index}`, file);
-    });
-
-    return await axios.post(`admin/${jwt}/product-upload-description-images`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
-}
-
-export async function RemoveDescriptionImage(jwt, imageSrc) {
-    return axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
+    create: async function (jwt, form){
+        return await axios.post(`admin/${jwt}/brand-create`, form);
+    }
 }

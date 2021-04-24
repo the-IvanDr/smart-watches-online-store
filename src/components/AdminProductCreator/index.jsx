@@ -5,10 +5,15 @@ import ProductPhotoSelector from './ProductPhotoSelector';
 import MainProductInfo from './MainProductInfo';
 import ProductDetails from './ProductDetails';
 import DescriptionEditor from './DescriptionEditor';
-import SubmitButton from './SubmitButton';
+import { AdminPannelField, SubmitButton } from '../AdminPannel';
+
 
 
 export default function AdminProductCreator() {
+
+    const submitHandler = () => {
+        console.log('submitHandler');
+    }
 
     return (
         <div className='AdminProductCreator'>
@@ -16,7 +21,10 @@ export default function AdminProductCreator() {
             <MainProductInfo />
             <ProductDetails />
             <DescriptionEditor />
-            <SubmitButton />
+            
+            <AdminPannelField>
+                <SubmitButton title='Отправить' onClick={submitHandler} />
+            </AdminPannelField>
         </div>
     )
 }

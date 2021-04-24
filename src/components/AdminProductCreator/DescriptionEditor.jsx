@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeProductInputs, uploadDescriptionImages, removeDescriptionImage } from './../../redux/actions/adminActions';
+import { ProductActions } from './../../redux/actions/adminActions';
 
-import { PhotoLoadButton, AdminPannelField } from '../AdminPannel';
+import { PhotoLoadButton, AdminPannelField, AdminPannelPhotoList, AdminPannelPhotoListItem } from '../AdminPannel';
 
 import dynamic from 'next/dynamic'
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
@@ -58,16 +58,16 @@ export default function DescriptionEditor() {
 
         // Jodit-react does not closes tags <img> and <br>, and final string is the same content but with closed tags img and br
         let final = newContent.replaceAll('">', '"/>').replaceAll('<br>', '<br/>');
-        dispatch(changeProductInputs('description', { ...description, text: final }));
+        dispatch(ProductActions.changeInputs('description', { ...description, text: final }));
     }
 
 
     const uploadImagesHandler = (event) => {
-        dispatch(uploadDescriptionImages(jwt, event.target.files));
+        dispatch(ProductActions.uploadDescriptionImages(jwt, event.target.files));
     }
 
     const removeImageHandler = (src) => {
-        dispatch(removeDescriptionImage(jwt, src));
+        dispatch(ProductActions.removeDescriptionImage(jwt, src));
     }
 
     const AddImageToDescriptionText = (event) => {
@@ -78,14 +78,15 @@ export default function DescriptionEditor() {
 
 
     const PhotoListFromDescriptionImages = () => {
-        return description.imagesSrc.map((src, index) => {
-            return (
-                <div key={`descr-image-${index}`} className='AdminProductCreator__photos-list__item'>
-                    <button onClick={() => removeImageHandler(src)}>✖</button>
-                    <img onClick={AddImageToDescriptionText} src={src} alt='image' />
-                </div>
-            )
-        })
+        return description.imagesSrc.map((src, index) => (
+            < AdminPannelPhotoListItem
+                key={`descr-image-${index}`}
+                onRemove={() => removeImageHandler(src)
+                }
+                imgSrc={src}
+                onImgClick={AddImageToDescriptionText}
+            />
+        ));
     }
 
 
@@ -95,12 +96,12 @@ export default function DescriptionEditor() {
 
             {
                 !!description.imagesSrc.length &&
-                <div className="AdminProductCreator__photos-list" style={{ marginBottom: '10px' }}>
+                <AdminPannelPhotoList>
                     <p>Кликните на изображение, чтобы прикрепить его к тексту</p>
-                    <div className="AdminProductCreator__photos-list__flex-wrapper">
+                    <div className="AdminProductCreator__flex-wrapper">
                         <PhotoListFromDescriptionImages />
                     </div>
-                </div>
+                </AdminPannelPhotoList>
             }
 
 

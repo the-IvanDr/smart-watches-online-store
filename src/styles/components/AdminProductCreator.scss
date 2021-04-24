@@ -8,44 +8,5 @@
         }
     }    
 
-    &__photos-list {
-        margin-top: 10px;
-        flex-wrap: wrap;
-
-        &__flex-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-
-        img {
-            // width: 150px;
-            max-height: 150px;
-            height: 100%;
-            margin-right: 20px;
-
-            &:hover {
-                cursor: pointer;
-            }
-        }
-
-        &__item {
-            position: relative;
-
-            button {
-                display: block;
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-        }
-    }    
+        
 }
