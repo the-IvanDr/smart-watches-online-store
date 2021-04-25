@@ -45,6 +45,10 @@ export const Products = {
 }
 
 export const Brands = {
+    getList: async function (jwt) {
+        return await axios.get(`admin/${jwt}/brand-get-list`);
+    },
+
     uploadImage: async function (jwt, file) {
         const formData = new FormData();
         formData.append('image', file);
@@ -59,5 +63,15 @@ export const Brands = {
 
     create: async function (jwt, form){
         return await axios.post(`admin/${jwt}/brand-create`, form);
+    }
+}
+
+export const Types = {
+    getList: async function (jwt) {
+        return await axios.get(`admin/${jwt}/type-get-list`);
+    },
+
+    create: async function (jwt, form){
+        return await axios.post(`admin/${jwt}/type-create`, form);
     }
 }

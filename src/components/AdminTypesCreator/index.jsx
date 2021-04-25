@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { TypeActions } from '../../redux/actions/adminActions';
 
-import { AdminInputWrapper, AdminPannelField, SubmitButton } from '../AdminPannel';
+import { AdminInputWrapper, AdminPannelField, ReturnButton, SubmitButton } from '../AdminPannel';
 
 
 export default function AdminTypesCreator() {
@@ -22,6 +22,9 @@ export default function AdminTypesCreator() {
 
     return (
         <div className='AdminTypesCreator'>
+            <AdminPannelField>
+                <ReturnButton onClick={() => dispatch(TypeActions.openList())} />
+            </AdminPannelField>
             <AdminPannelField title='Название типа'>
                 <AdminInputWrapper type='text' name='name' value={form.name} onChange={nameChangeHandler} />
             </AdminPannelField>

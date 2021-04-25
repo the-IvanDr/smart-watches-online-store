@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrandActions } from './../../redux/actions/adminActions';
 
-import { PhotoLoadButton, AdminPannelField, AdminPannelPhotoListItem, AdminPannelPhotoList, AdminInputWrapper, SubmitButton } from './../AdminPannel';
+import { PhotoLoadButton, AdminPannelField, AdminPannelPhotoListItem, AdminPannelPhotoList, AdminInputWrapper, SubmitButton, ReturnButton } from './../AdminPannel';
 
 
 export default function AdminBrandCreator() {
@@ -35,6 +35,9 @@ export default function AdminBrandCreator() {
 
     return (
         <div className='AdminBrandCreator'>
+            <AdminPannelField>
+                <ReturnButton onClick={() => dispatch(BrandActions.openList())} />
+            </AdminPannelField>
             <AdminPannelField title='Логотип бренда'>
                 <PhotoLoadButton inputId='brand-logo-loader' onChange={logoUploadHandler} />
                 {

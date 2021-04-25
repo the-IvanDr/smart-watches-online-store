@@ -91,3 +91,52 @@ export const AdminCheckboxWrapper = ({ name, checked, onChange, title }) => {
 export const SubmitButton = ({ onClick, title }) => {
     return <button className='AdminPannel__submit-btn' onClick={onClick}>{title}</button>
 }
+
+export const ReturnButton = ({ onClick }) => {
+    return (
+        <button className='AdminPannel__button' onClick={onClick}>
+            <i className="fa fa-long-arrow-left" aria-hidden="true" />
+            Назад
+        </button>
+    )
+}
+
+export const RedButton = ({ onClick, title }) => {
+    return (
+        <button className='AdminPannel__red-btn' onClick={onClick}>
+            {title}
+        </button>
+    )
+}
+
+export const Button = ({ onClick, title }) => {
+    return (
+        <button className='AdminPannel__button' onClick={onClick}>
+            {title}
+        </button>
+    )
+}
+
+export const AdminPannelViewWrapper = ({ children }) => {
+    return (
+        <div className='AdminPannel__view'>
+            {children}
+        </div>
+    )
+}
+
+export const AdminPannelViewItem = ({ title, value, imgSrc }) => {
+    return (
+        <div className='AdminPannel__view__item'>
+            <div className='AdminPannel__view__item__title'>{title}:</div>
+            {
+                imgSrc
+                    ? <div className='AdminPannel__view__item__value_img'>
+                        <img src={imgSrc} alt='image' />
+                    </div>
+                    : <div className='AdminPannel__view__item__value'>{value}</div>
+            }
+
+        </div>
+    )
+}

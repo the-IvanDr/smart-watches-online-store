@@ -2,7 +2,7 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
-const { User, Brand } = require('../models/models');
+const { User, Brand, Type } = require('../models/models');
 
 
 const PATH_STATIC_IMAGES_PRODUCT_DESCRIPTION = path.resolve(__dirname, '..', 'static', 'images', 'products', 'description');
@@ -92,6 +92,17 @@ exports.product = {
 }
 
 exports.brand = {
+    GetList: async (req, res) => {
+        try {
+            const brands = await Brand.findAll();
+            res.json({ brands });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     UploadImage: async (req, res) => {
         try {
             const { image } = req.files;
@@ -138,6 +149,34 @@ exports.brand = {
 
         } catch (error) {
             console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+exports.type = {
+    GetList: async (req, res) => {
+        try {
+            const types = await Type.findAll();
+            res.json({ types });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    Create: async (req, res) => {
+        try {
+            const { name } = req.body;
+
+            const [_, created] = await Type.findOrCreate({ where: { name } });
+
+            if (created) res.json({ success: true, message: 'Тип успешно добавлен' });
+            else res.json({ success: false, message: 'Такой тип уже есть' });
+
+        } catch (error) {
+            console.log("Error:", error.message);
             res.status(500).json({ error: error.message });
         }
     }

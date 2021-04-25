@@ -11,8 +11,13 @@ router.post('/:token/product-upload-main-image', isAdmin, AdminController.produc
 router.post('/:token/product-remove-main-image', isAdmin, AdminController.product.RemoveMainImage);
 
 // BRANDS
+router.get('/:token/brand-get-list', isAdmin, AdminController.brand.GetList);
 router.post('/:token/brand-upload-image', isAdmin, AdminController.brand.UploadImage);
 router.post('/:token/brand-remove-image', isAdmin, AdminController.brand.RemoveImage);
 router.post('/:token/brand-create', isAdmin, AdminController.brand.Create);
+
+// TYPES
+router.get('/:token/type-get-list', isAdmin, AdminController.type.GetList)
+router.post('/:token/type-create', isAdmin, AdminController.type.Create);
 
 module.exports = router;

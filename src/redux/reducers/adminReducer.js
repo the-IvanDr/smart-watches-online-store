@@ -100,13 +100,27 @@ const initialState = {
     },
 
     brands: {
+        tabs: {
+            list: true,
+            createForm: false,
+            view: false
+        },
+        view: null,
+        list: [],
         createForm: {
             photo: '',
             name: ''
-        }
+        },
     },
 
     types: {
+        tabs: {
+            list: true,
+            createForm: false,
+            view: false
+        },
+        view: null,
+        list: [],
         createForm: {
             name: ''
         }
@@ -139,6 +153,18 @@ export default function adminReducer(state = initialState, action) {
             return ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES_Handler(state, action);
 
         // BRANDS
+        case types.ADMIN_BRANDS_GET_LIST:
+            return ADMIN_BRANDS_GET_LIST_Handler(state, action);
+
+        case types.ADMIN_BRANDS_TABS_SELECT:
+            return ADMIN_BRANDS_TABS_SELECT_Handler(state, action);
+
+        case types.ADMIN_BRANDS_TABS_CREATOR:
+            return ADMIN_BRANDS_TABS_CREATOR_Handler(state, action);
+
+        case types.ADMIN_BRANDS_TABS_LIST:
+            return ADMIN_BRANDS_TABS_LIST_Handler(state, action);
+
         case types.ADMIN_BRANDS_FORM_CHANGE:
             return ADMIN_BRANDS_FORM_CHANGE_Handler(state, action);
 
@@ -154,6 +180,18 @@ export default function adminReducer(state = initialState, action) {
         // TYPES
         case types.ADMIN_TYPES_FORM_CHANGE:
             return ADMIN_TYPES_FORM_CHANGE_Handler(state, action);
+
+        case types.ADMIN_TYPES_TABS_SELECT:
+            return ADMIN_TYPES_TABS_SELECT_Handler(state, action);
+
+        case types.ADMIN_TYPES_TABS_CREATOR:
+            return ADMIN_TYPES_TABS_CREATOR_Handler(state, action);
+
+        case types.ADMIN_TYPES_TABS_LIST:
+            return ADMIN_TYPES_TABS_LIST_Handler(state, action);
+
+        case types.ADMIN_TYPES_GET_LIST:
+            return ADMIN_TYPES_GET_LIST_Handler(state, action);
 
         case types.ADMIN_TYPES_CREATE:
             return ADMIN_TYPES_CREATE_Handler(state, action);
@@ -348,6 +386,76 @@ const ADMIN_BRANDS_CREATE_Handler = (state) => {
     return state;
 }
 
+const ADMIN_BRANDS_GET_LIST_Handler = (state, action) => {
+    console.log('ADMIN_BRANDS_GET_LIST', action.payload);
+
+    const BRAND_LIST = action.payload.brands;
+
+    return {
+        ...state,
+        brands: {
+            ...state.brands,
+            list: BRAND_LIST
+        }
+    };
+}
+
+const ADMIN_BRANDS_TABS_SELECT_Handler = (state, action) => {
+    console.log('ADMIN_BRANDS_TABS_SELECT', action.payload);
+
+    const BRAND_ID = action.payload.brandId;
+    const TABS = {
+        list: false,
+        createForm: false,
+        view: true
+    };
+
+    return {
+        ...state,
+        brands: {
+            ...state.brands,
+            tabs: TABS,
+            view: BRAND_ID
+        }
+    }
+}
+
+const ADMIN_BRANDS_TABS_CREATOR_Handler = (state, action) => {
+    console.log('ADMIN_BRANDS_TABS_CREATOR');
+
+    const TABS = {
+        list: false,
+        createForm: true,
+        view: false
+    }
+
+    return {
+        ...state,
+        brands: {
+            ...state.brands,
+            tabs: TABS,
+        }
+    }
+}
+
+const ADMIN_BRANDS_TABS_LIST_Handler = (state, action) => {
+    console.log('ADMIN_BRANDS_TABS_LIST');
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false
+    }
+
+    return {
+        ...state,
+        brands: {
+            ...state.brands,
+            tabs: TABS
+        }
+    }
+}
+
 //===================== TYPES =============================\\
 const ADMIN_TYPES_FORM_CHANGE_Handler = (state, action) => {
     console.log('ADMIN_TYPES_FORM_CHANGE', action.payload);
@@ -363,6 +471,77 @@ const ADMIN_TYPES_FORM_CHANGE_Handler = (state, action) => {
                 ...state.types.createForm,
                 [FIELD_NAME]: FIELD_VALUE
             }
+        }
+    };
+}
+
+const ADMIN_TYPES_GET_LIST_Handler = (state, action) => {
+    console.log('ADMIN_TYPES_GET_LIST', action.payload);
+
+    const TYPES_LIST = action.payload.list;
+
+    return {
+        ...state,
+        types: {
+            ...state.types,
+            list: TYPES_LIST
+        }
+    };
+}
+
+const ADMIN_TYPES_TABS_CREATOR_Handler = (state, action) => {
+    console.log('ADMIN_TYPES_TABS_CREATOR');
+
+    const TABS = {
+        list: false,
+        createForm: true,
+        view: false
+    }
+
+    return {
+        ...state,
+        types: {
+            ...state.types,
+            tabs: TABS
+        }
+    };
+}
+
+const ADMIN_TYPES_TABS_SELECT_Handler = (state, action) => {
+    console.log('ADMIN_TYPES_TABS_SELECT', action.payload);
+
+    const TYPE_ID = action.payload.typeId;
+    const TABS = {
+        list: false,
+        createForm: false,
+        view: true
+    }
+
+    return {
+        ...state,
+        types: {
+            ...state.types,
+            tabs: TABS,
+            view: TYPE_ID
+        }
+    };
+}
+
+const ADMIN_TYPES_TABS_LIST_Handler = (state, action) => {
+    console.log('ADMIN_TYPES_TABS_LIST');
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false
+    };
+
+    return {
+        ...state,
+        types: {
+            ...state.types,
+            tabs: TABS,
+            view: null
         }
     };
 }
