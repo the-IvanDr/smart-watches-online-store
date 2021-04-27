@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
 const { User, Brand, Type } = require('../models/models');
+const { response } = require('express');
 
 
 const PATH_STATIC_IMAGES_PRODUCT_DESCRIPTION = path.resolve(__dirname, '..', 'static', 'images', 'products', 'description');
@@ -88,6 +89,11 @@ exports.product = {
             console.log("ProductDescription Remove image Error:", error.message);
             res.status(500).json({ error: error.message });
         }
+    },
+
+    Create: async (req, res) => {
+        console.log('req.body', req.body);
+        res.json({ message: 'kek lol mda' });
     }
 }
 
@@ -151,6 +157,29 @@ exports.brand = {
             console.log("Error: ", error.message);
             res.status(500).json({ error: error.message });
         }
+    },
+
+    Delete: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const brand = await Brand.findOne({ where: { id } });
+            if (!brand) return res.json({ success: false, message: 'Бренд с таким id не найден' });
+
+            const imageName = parseImageNameFromSrc(brand.logoSrc);
+
+            await fs.unlink(path.resolve(PATH_STATIC_IMAGES_BRANDS, imageName), (error) => {
+                if (error) return res.json({ success: false, message: 'Не удалось удалить изображение' });
+            });
+
+            await Brand.destroy({ where: { id } });
+
+            res.json({ success: true });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
     }
 }
 
@@ -174,6 +203,20 @@ exports.type = {
 
             if (created) res.json({ success: true, message: 'Тип успешно добавлен' });
             else res.json({ success: false, message: 'Такой тип уже есть' });
+
+        } catch (error) {
+            console.log("Error:", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    Delete: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            await Type.destroy({ where: { id } });
+
+            return res.json({ success: true });
 
         } catch (error) {
             console.log("Error:", error.message);
