@@ -7,6 +7,7 @@ import { AdminPannelField, AdminPannelViewItem, AdminPannelViewWrapper, ReturnBu
 
 export default function AdminBrandView() {
 
+    const jwt = useSelector(state => state.auth.authData.token);
     const brand = useSelector(state => state.admin.brands.list.find(item => item.id === state.admin.brands.view));
     const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ export default function AdminBrandView() {
     }
 
     const removeHandler = () => {
-        console.log('remove');
+        dispatch(BrandActions.delete(jwt, brand.id));
     }
 
     return (
@@ -35,8 +36,8 @@ export default function AdminBrandView() {
                     <AdminPannelViewItem title='Логотип' imgSrc={brand.logoSrc} />
                     <AdminPannelViewItem title='ID' value={brand.id} />
                     <AdminPannelViewItem title='Название' value={brand.name} />
-                    <AdminPannelViewItem title='Дата создания' value={new Date(brand.createdAt).toUTCString()} />
-                    <AdminPannelViewItem title='Дата последнего редактирования' value={new Date(brand.updatedAt).toUTCString()} />
+                    <AdminPannelViewItem title='Дата создания' value={new Date(brand.createdAt).toLocaleString()} />
+                    <AdminPannelViewItem title='Дата последнего редактирования' value={new Date(brand.updatedAt).toLocaleString()} />
 
                 </AdminPannelViewWrapper>
             </AdminPannelField>

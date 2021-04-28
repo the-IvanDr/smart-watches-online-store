@@ -143,10 +143,16 @@
                 margin-left: 20px;
                 font-weight: 500;
                 color: rgba(0, 0, 0, .5);
+                max-height: 300px;
+                overflow-y: auto;
                 
                 &_img{
                     margin-left: 20px;
                     border: 1px solid #000;
+                    max-width: 200px;
+                    img{
+                        width: 100%;
+                    }
                 }
             }
         }

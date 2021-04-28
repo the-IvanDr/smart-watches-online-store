@@ -6,7 +6,8 @@ import { AdminPannelField, AdminPannelViewWrapper, Button, RedButton, ReturnButt
 
 
 export default function AdminTypeView() {
-
+    
+    const jwt = useSelector(state => state.auth.authData.token);
     const type = useSelector(state => state.admin.types.list.find(item => item.id === state.admin.types.view));
     const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ export default function AdminTypeView() {
     }
 
     const removeHandler = () => {
-        console.log('remove');
+        dispatch(TypeActions.delete(jwt, type.id));
     }
 
 

@@ -26,8 +26,10 @@ const Product = sequelize.define('product', {
     name: { type: DataTypes.STRING, allowNull: false },
     imageSrc: { type: DataTypes.STRING, allowNull: false },
 
+    article: { type: DataTypes.STRING, allowNull: false },
+
     price: { type: DataTypes.INTEGER, allowNull: false },
-    old_price: { type: DataTypes.INTEGER },
+    discount: { type: DataTypes.INTEGER },
 
     is_novelty: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
     is_hit: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },

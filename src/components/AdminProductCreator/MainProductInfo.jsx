@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProductActions } from '../../redux/actions/adminActions';
 
 import { AdminPannelField, AdminInputWrapper, AdminInputRowGroup, AdminSelectorWrapper, AdminCheckboxListWrapper, AdminCheckboxWrapper } from '../AdminPannel';
 
 export default function MainProductInfo() {
+
+    const jwt = useSelector(state => state.auth.authData.token);
     const form = useSelector(state => state.admin.products.createForm);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(ProductActions.getTypesAndBrands(jwt));
+
+    }, []);
 
 
     const inputsChangeHandler = (event) => {
@@ -55,6 +62,8 @@ export default function MainProductInfo() {
                 <AdminCheckboxWrapper title='Хит' name='isHit' checked={form.isHit} onChange={inputsChangeHandler} />
                 <AdminCheckboxWrapper title='Новинка' name='isNovelty' checked={form.isNovelty} onChange={inputsChangeHandler} />
             </AdminCheckboxListWrapper>
+
+            <AdminInputWrapper title='Артикул' type='text' name='article' value={form.article} onChange={inputsChangeHandler} />
 
         </AdminPannelField>
     )

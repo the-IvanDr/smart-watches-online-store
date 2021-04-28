@@ -21,6 +21,10 @@ export const Products = {
         });
     },
 
+    getList: async function (jwt){
+        return axios.get(`admin/${jwt}/product-get-list`);
+    },
+
     uploadDescriptionImages: async function (jwt, files) {
         const formData = new FormData();
 
@@ -41,6 +45,10 @@ export const Products = {
 
     removeDescriptionImage: async function (jwt, imageSrc) {
         return axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
+    },
+
+    create: async function (jwt, form) {
+        return await axios.post(`admin/${jwt}/product-create`, form);
     }
 }
 
@@ -61,8 +69,12 @@ export const Brands = {
         return await axios.post(`admin/${jwt}/brand-remove-image`, imageSrc);
     },
 
-    create: async function (jwt, form){
+    create: async function (jwt, form) {
         return await axios.post(`admin/${jwt}/brand-create`, form);
+    },
+
+    delete: async function (jwt, brandId) {
+        return await axios.post(`admin/${jwt}/brand-delete/${brandId}`)
     }
 }
 
@@ -71,7 +83,11 @@ export const Types = {
         return await axios.get(`admin/${jwt}/type-get-list`);
     },
 
-    create: async function (jwt, form){
+    create: async function (jwt, form) {
         return await axios.post(`admin/${jwt}/type-create`, form);
+    },
+
+    delete: async function (jwt, typeId) {
+        return await axios.post(`admin/${jwt}/type-delete/${typeId}`)
     }
 }

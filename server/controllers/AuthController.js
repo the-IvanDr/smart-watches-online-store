@@ -15,7 +15,7 @@ exports.registerUser = async function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
 
-            console.log('errors.array(): ', errors.erray());
+            console.log('errors.array(): ', errors.array());
 
             return res.status(400).json({
                 errors: errors.array(),

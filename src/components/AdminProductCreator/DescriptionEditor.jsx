@@ -72,7 +72,7 @@ export default function DescriptionEditor() {
 
     const AddImageToDescriptionText = (event) => {
         const src = event.target.src;
-        const newDescription = description.text + `<img src="${src}" alt="product-description" />`
+        const newDescription = description.text + `<img src="${src}" alt="product-description" />`;
         setDescription(newDescription);
     }
 

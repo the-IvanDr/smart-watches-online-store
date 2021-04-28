@@ -1,9 +1,9 @@
 require('dotenv').config();
+const { validationResult } = require('express-validator');
 const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
-const { User, Brand, Type } = require('../models/models');
-const { response } = require('express');
+const { User, Brand, Type, Product, ProductDetails } = require('../models/models');
 
 
 const PATH_STATIC_IMAGES_PRODUCT_DESCRIPTION = path.resolve(__dirname, '..', 'static', 'images', 'products', 'description');
@@ -91,9 +91,101 @@ exports.product = {
         }
     },
 
+    GetList: async (req, res) => {
+        try {
+            let products = await Product.findAll();
+
+            products = await Promise.all(products.map(async product => {
+                const brand = await Brand.findOne({ where: { id: product.brandId } });
+                const type = await Type.findOne({ where: { id: product.typeId } });
+
+                delete product.dataValues.brandId;
+                delete product.dataValues.typeId;
+
+                return { ...product.dataValues, brand, type };
+            }));
+
+            res.json({ products });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     Create: async (req, res) => {
-        console.log('req.body', req.body);
-        res.json({ message: 'kek lol mda' });
+        try {
+            console.log('req.body', req.body);
+
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log('errors.array(): ', errors.array());
+
+                return res.status(200).json({
+                    errors: errors.array().map(error => error.msg),
+                    message: "Некорректные данные"
+                });
+            }
+
+            const data = req.body;
+
+            const [productDetails] = await ProductDetails.findOrCreate({
+                where: {
+                    series: data.series,
+                    os: data.os,
+                    os_compatibility: data.osCompatibility,
+                    watch_shape: data.watchShape,
+                    body_material: data.bodyMaterial,
+                    strap_material: data.strapMaterial,
+                    body_color: data.bodyColor,
+                    strap_color: data.strapColor,
+                    display_type: data.displayType,
+                    display_diagonal: data.displayDiagonal,
+                    display_resolution: data.displayResolution,
+                    monitoring: data.monitoring,
+                    sensors: data.sensors,
+                    battery_type: data.batteryType,
+                    battery_capacity: data.batteryCapacity,
+                    standby_time: data.standbyTime,
+                    dimensions: data.dimensions,
+                    weight: data.weight,
+                    equipment: data.equipment,
+                    features: data.features,
+                    is_touch_display: data.isTouchDisplay,
+                    is_replaceable_strap: data.isReplaceableStrap,
+                    is_strap_length_adjusment: data.isStrapLengthAdjusment,
+                    is_moisture_and_dust_protection: data.isMoistureAndDustProtection,
+                    is_phone_calls: data.isPhoneCalls,
+                    is_gps_support: data.isGpsSupport
+                }
+            });
+
+            const [_, created] = await Product.findOrCreate({
+                where: { name: data.title },
+                defaults: {
+                    imageSrc: data.mainImageSrc,
+                    price: data.price,
+                    article: data.article,
+                    discount: data.discount,
+                    is_novelty: data.isNovelty,
+                    is_hit: data.isHit,
+                    is_for_woman: data.character == 'Женский',
+                    is_for_man: data.character == 'Мужской',
+                    is_for_kids: data.character == 'Детский',
+                    description: data.description,
+                    typeId: data.typeId,
+                    brandId: data.brandId,
+                    productDetailId: productDetails.id
+                }
+            });
+
+            if (created) return res.json({ success: true, message: 'Товар успешно добавлен' });
+            else return res.json({ success: false, message: 'Товар с таким названием уже есть' });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
     }
 }
 

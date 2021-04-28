@@ -14,39 +14,21 @@ const initialState = {
     },
 
     products: {
+        tabs: {
+            list: true,
+            createForm: false,
+            view: false
+        },
+        view: null,
+        list: [],
         createForm: {
             mainImageSrc: '',
             title: '',
             price: 0,
             discount: 0,
-            types: [
-                {
-                    name: 'Смарт-часы',
-                    active: true
-                },
-                {
-                    name: 'Ремень',
-                    active: false
-                }
-            ],
-            brands: [
-                {
-                    name: 'Xiaomi',
-                    active: true
-                },
-                {
-                    name: 'Huawei',
-                    active: false
-                },
-                {
-                    name: 'Apple',
-                    active: false
-                },
-                {
-                    name: 'Samsung',
-                    active: false
-                }
-            ],
+            article: '',
+            types: [{ active: true, name: 'Нет типов. Создайте' }],
+            brands: [{ active: true, name: 'Нет брендов. Создайте' }],
             character: [
                 {
                     name: 'Женский',
@@ -137,6 +119,18 @@ export default function adminReducer(state = initialState, action) {
             return ADMIN_HEADER_CHANGE_TAB_Handler(state, action);
 
         // PRODUCTS
+        case types.ADMIN_PRODUCTS_GET_LIST:
+            return ADMIN_PRODUCTS_GET_LIST_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_TABS_CREATOR:
+            return ADMIN_PRODUCTS_TABS_CREATOR_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_TABS_LIST:
+            return ADMIN_PRODUCTS_TABS_LIST_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_TABS_VIEW:
+            return ADMIN_PRODUCTS_TABS_VIEW_Handler(state, action);
+
         case types.ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE:
             return ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE_Handler(state, action);
 
@@ -151,6 +145,12 @@ export default function adminReducer(state = initialState, action) {
 
         case types.ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES:
             return ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_GET_BRANDS_AND_TYPES:
+            return ADMIN_PRODUCTS_GET_BRANDS_AND_TYPES_Handler(state, action);
+
+        case types.ADMIN_PRODUCTS_CREATE:
+            return ADMIN_PRODUCTS_CREATE_Handler(state, action);
 
         // BRANDS
         case types.ADMIN_BRANDS_GET_LIST:
@@ -235,6 +235,76 @@ const ADMIN_HEADER_CHANGE_TAB_Handler = (state, action) => {
 }
 
 //===================== PRODUCTS =============================\\
+const ADMIN_PRODUCTS_GET_LIST_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_GET_LIST', action.payload);
+
+    const PRODUCTS = action.payload.products;
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            list: PRODUCTS
+        }
+    };
+}
+
+const ADMIN_PRODUCTS_TABS_CREATOR_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_TABS_CREATOR');
+
+    const TABS = {
+        list: false,
+        createForm: true,
+        view: false
+    };
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            tabs: TABS
+        }
+    }
+}
+
+const ADMIN_PRODUCTS_TABS_LIST_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_TABS_LIST');
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false
+    };
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            tabs: TABS
+        }
+    };
+}
+
+const ADMIN_PRODUCTS_TABS_VIEW_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_TABS_VIEW', action.payload);
+
+    const PRODUCT_ID = action.payload.productId;
+    const TABS = {
+        list: false,
+        createForm: false,
+        view: true
+    };
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            view: PRODUCT_ID,
+            tabs: TABS
+        }
+    }
+}
+
 const ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE_Handler = (state, action) => {
     console.log('ADMIN_PRODUCTS_UPLOAD_PRODUCT_IMAGE', action.payload);
 
@@ -331,6 +401,46 @@ const ADMIN_PRODUCTS_FORM_DESCRIPTION_REMOVE_IMAGES_Handler = (state, action) =>
     };
 }
 
+const ADMIN_PRODUCTS_GET_BRANDS_AND_TYPES_Handler = (state, action) => {
+    console.log('ADMIN_PRODUCTS_GET_BRANDS_AND_TYPES', action.payload);
+
+    const DEFAULT_ACTIVE_INDEX = 0;
+
+    const BRANDS = action.payload.brands.map((brand, index) => {
+        return {
+            active: index === DEFAULT_ACTIVE_INDEX,
+            name: brand.name,
+            id: brand.id,
+        }
+    });
+
+    const TYPES = action.payload.types.map((type, index) => {
+        return {
+            active: index === DEFAULT_ACTIVE_INDEX,
+            name: type.name,
+            id: type.id
+        }
+    });
+
+    return {
+        ...state,
+        products: {
+            ...state.products,
+            createForm: {
+                ...state.products.createForm,
+                brands: BRANDS.length > 0 ? BRANDS : state.products.createForm.brands,
+                types: TYPES.length > 0 ? TYPES : state.products.createForm.types
+            }
+        }
+    };
+}
+
+const ADMIN_PRODUCTS_CREATE_Handler = (state) => {
+    console.log('ADMIN_PRODUCTS_CREATE');
+
+    return state;
+}
+
 //===================== BRANDS =============================\\
 const ADMIN_BRANDS_FORM_CHANGE_Handler = (state, action) => {
     console.log('ADMIN_BRANDS_FORM_CHANGE', action.payload);
@@ -383,7 +493,26 @@ const ADMIN_BRANDS_REMOVE_IMAGE_Handler = (state) => {
 
 const ADMIN_BRANDS_CREATE_Handler = (state) => {
     console.log('ADMIN_BRANDS_CREATE');
-    return state;
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false
+    };
+
+    const FORM = {
+        name: '',
+        photo: ''
+    }
+
+    return {
+        ...state,
+        brands: {
+            ...state.brands,
+            createForm: FORM,
+            tabs: TABS
+        }
+    };
 }
 
 const ADMIN_BRANDS_GET_LIST_Handler = (state, action) => {
@@ -548,5 +677,23 @@ const ADMIN_TYPES_TABS_LIST_Handler = (state, action) => {
 
 const ADMIN_TYPES_CREATE_Handler = (state, action) => {
     console.log('ADMIN_TYPES_CREATE');
-    return state;
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false
+    };
+
+    const FORM = {
+        name: ''
+    }
+
+    return {
+        ...state,
+        types: {
+            ...state.types,
+            createForm: FORM,
+            tabs: TABS
+        }
+    };
 }
