@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PromoBtn from '../../components/PromoBtn';
+import Link from 'next/link';
 
 export default function Promo() {
     return (
@@ -12,7 +12,7 @@ export default function Promo() {
 
                 <div className='Promo__yellow-banner__header'>
                     <p>Смарт время <br /> смарт-часы!</p>
-                    <PromoBtn text='Купить' />
+                    <Link href='/catalog'><a className='PromoBtn'>Купить</a></Link>
                 </div>
             </div>
             <div className='Promo__blue-banner'>

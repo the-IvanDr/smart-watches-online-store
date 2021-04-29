@@ -93,11 +93,11 @@ export default function Header(props) {
                 {/*================= Other Components START =======================*/}
                 <nav className='Header__nav'>
                     <ul>
-                        <li><a href='/'>Мужские</a></li>
-                        <li><a href='/'>Женские</a></li>
-                        <li><a href='/'>Детские</a></li>
-                        <li><a href='/'>Аксессуары</a></li>
-                        <li><a href='/'>Бренды</a></li>
+                        <li><Link href='/catalog/man'><a className={clsx(props.activeTab === 0 && 'active')}>Мужские</a></Link></li>
+                        <li><Link href='/catalog/woman'><a className={clsx(props.activeTab === 1 && 'active')}>Женские</a></Link></li>
+                        <li><Link href='/catalog/kid'><a className={clsx(props.activeTab === 2 && 'active')}>Детские</a></Link></li>
+                        <li><Link href='/catalog/accessories'><a className={clsx(props.activeTab === 3 && 'active')}>Аксессуары</a></Link></li>
+                        <li><Link href='/brands'><a className={clsx(props.activeTab === 4 && 'active')}>Бренды</a></Link></li>
                     </ul>
                 </nav>
 

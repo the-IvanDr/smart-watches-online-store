@@ -21,8 +21,16 @@ export const Products = {
         });
     },
 
-    getList: async function (jwt){
-        return axios.get(`admin/${jwt}/product-get-list`);
+    getList: async function () {
+        return axios.get(`admin/product-get-list`);
+    },
+
+    getHits: async function () {
+        return axios.get(`admin/product-get-hits`);
+    },
+
+    getNovelty: async function () {
+        return axios.get(`admin/product-get-novelty`);
     },
 
     uploadDescriptionImages: async function (jwt, files) {
@@ -53,8 +61,8 @@ export const Products = {
 }
 
 export const Brands = {
-    getList: async function (jwt) {
-        return await axios.get(`admin/${jwt}/brand-get-list`);
+    getList: async function () {
+        return await axios.get(`admin/brand-get-list`);
     },
 
     uploadImage: async function (jwt, file) {

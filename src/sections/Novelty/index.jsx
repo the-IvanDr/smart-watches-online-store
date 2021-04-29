@@ -1,48 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as APIQuery from '../../utils/APIQuery';
 
 import Carousel from '../../components/Carousel';
 import ProductCard from '../../components/ProductCard';
 
 
 export default function Novelty(props) {
+
+    const [products, setProducts] = useState([]);
+    useEffect(async () => {
+        const response = await APIQuery.Products.getNovelty();
+        setProducts([...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products]);
+        console.log(response.data.products);
+    }, []);
+
+
     return (
         <section className='Novelty'>
             <h3 className='Novelty__title'>Новинки</h3>
             <Carousel>
-                <ProductCard
-                    img='./assets/images/products/amazfit__verge.jpg'
-                    oldPrice='5 500'
-                />
-                <ProductCard
-                    img='./assets/images/products/garmin_forerunner235.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
-                <ProductCard
-                    img='./assets/images/products/samsung_galaxy_silver.jpg'
-                />
+                {products.map(product => {
+                    return <ProductCard
+                        key={`product-novelty-${product.id}`}
+                        name={product.name}
+                        img={product.imageSrc}
+                        oldPrice={product.discount && (product.price * product.discount) / 100}
+                        price={product.price}
+                        isNovelty={product.is_novelty}
+                    />
+                })}
             </Carousel>
         </section>
     )

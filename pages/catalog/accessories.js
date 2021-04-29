@@ -12,12 +12,12 @@ import Footer from './../../src/sections/Footer/index';
 export default function Catalog() {
     return (
         <div>
-            <Head><title>Time Shop | Catalog</title></Head>
+            <Head><title>Time Shop | Accessories</title></Head>
 
             <GoUp />
-            <Header />
+            <Header activeTab={3} />
 
-            <CatalogHeader title='Каталог' bannerImgSrc='assets/images/catalogs-headers/catalog.png' />
+            <CatalogHeader title='Аксессуары' bannerImgSrc='/assets/images/catalogs-headers/accessories.png' />
             <Filter />
             <CatalogProducts />
             <ViewedProducts />

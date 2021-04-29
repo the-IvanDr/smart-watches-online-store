@@ -113,6 +113,54 @@ exports.product = {
         }
     },
 
+    GetHits: async (req, res) => {
+        try {
+            let products = await Product.findAll({
+                where: { is_hit: true }
+            });
+
+            products = await Promise.all(products.map(async product => {
+                const brand = await Brand.findOne({ where: { id: product.brandId } });
+                const type = await Type.findOne({ where: { id: product.typeId } });
+
+                delete product.dataValues.brandId;
+                delete product.dataValues.typeId;
+
+                return { ...product.dataValues, brand, type };
+            }));
+
+            res.json({ products });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    GetNovelty: async (req, res) => {
+        try {
+            let products = await Product.findAll({
+                where: { is_novelty: true }
+            });
+
+            products = await Promise.all(products.map(async product => {
+                const brand = await Brand.findOne({ where: { id: product.brandId } });
+                const type = await Type.findOne({ where: { id: product.typeId } });
+
+                delete product.dataValues.brandId;
+                delete product.dataValues.typeId;
+
+                return { ...product.dataValues, brand, type };
+            }));
+
+            res.json({ products });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     Create: async (req, res) => {
         try {
             console.log('req.body', req.body);

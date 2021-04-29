@@ -5,7 +5,9 @@ const AdminController = require('../controllers/AdminController');
 const router = Router();
 
 // PRODUCTS
-router.get('/:token/product-get-list', isAdmin, AdminController.product.GetList)
+router.get('/product-get-list', AdminController.product.GetList);
+router.get('/product-get-hits', AdminController.product.GetHits);
+router.get('/product-get-novelty', AdminController.product.GetNovelty);
 router.post('/:token/product-upload-description-images', isAdmin, AdminController.product.UploadDescriptionImage);
 router.post('/:token/product-remove-description-image', isAdmin, AdminController.product.RemoveDescriptionImage);
 router.post('/:token/product-upload-main-image', isAdmin, AdminController.product.UploadMainImage);
@@ -32,7 +34,7 @@ router.post('/:token/product-create',
 )
 
 // BRANDS
-router.get('/:token/brand-get-list', isAdmin, AdminController.brand.GetList);
+router.get('/brand-get-list', AdminController.brand.GetList);
 router.post('/:token/brand-upload-image', isAdmin, AdminController.brand.UploadImage);
 router.post('/:token/brand-remove-image', isAdmin, AdminController.brand.RemoveImage);
 router.post('/:token/brand-create', isAdmin, AdminController.brand.Create);

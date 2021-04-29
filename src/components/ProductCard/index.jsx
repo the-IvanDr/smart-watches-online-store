@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 
-export default function ProductCard({ img, oldPrice }) {
+export default function ProductCard({ img, price, oldPrice, isNovelty, name }) {
     const [isFocused, setIsFocused] = useState(false);
 
     return (
@@ -12,10 +12,10 @@ export default function ProductCard({ img, oldPrice }) {
         >
             <a className='ProductCard__image' href='/'>
                 <img src={img} alt='product' />
-                <span className='ProductCard__novelty'>Новинка</span>
+                {isNovelty && <span className='ProductCard__novelty'>Новинка</span>}
             </a>
-            <a className='ProductCard__name' href='/'>Смарт-часы XIAOMI Amazfit Verge Blue</a>
-            <span className='ProductCard__price'>3 599 грн {oldPrice && <span>{oldPrice} грн</span>}</span>
+            <a className='ProductCard__name' href='/'>{name}</a>
+            <span className='ProductCard__price'>{price} {oldPrice && <span>{oldPrice} грн</span>}</span>
             <div className='ProductCard__hiden'>
                 <a href='/'>Купить</a>
                 <span className='ProductCard__hiden__heart checked'><span><i aria-hidden className="far fa-heart" /></span></span>
