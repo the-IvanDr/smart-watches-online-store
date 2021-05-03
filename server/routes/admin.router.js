@@ -8,6 +8,7 @@ const router = Router();
 router.get('/product-get-list', AdminController.product.GetList);
 router.get('/product-get-hits', AdminController.product.GetHits);
 router.get('/product-get-novelty', AdminController.product.GetNovelty);
+router.post('/product-get-by-filter', AdminController.product.GetByFilter);
 router.post('/:token/product-upload-description-images', isAdmin, AdminController.product.UploadDescriptionImage);
 router.post('/:token/product-remove-description-image', isAdmin, AdminController.product.RemoveDescriptionImage);
 router.post('/:token/product-upload-main-image', isAdmin, AdminController.product.UploadMainImage);

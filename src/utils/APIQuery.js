@@ -22,15 +22,19 @@ export const Products = {
     },
 
     getList: async function () {
-        return axios.get(`admin/product-get-list`);
+        return await axios.get(`admin/product-get-list`);
     },
 
     getHits: async function () {
-        return axios.get(`admin/product-get-hits`);
+        return await axios.get(`admin/product-get-hits`);
     },
 
     getNovelty: async function () {
-        return axios.get(`admin/product-get-novelty`);
+        return await axios.get(`admin/product-get-novelty`);
+    },
+
+    getByFilter: async function (filter) {
+        return await axios.post(`admin/product-get-by-filter`, filter);
     },
 
     uploadDescriptionImages: async function (jwt, files) {
@@ -52,7 +56,7 @@ export const Products = {
     },
 
     removeDescriptionImage: async function (jwt, imageSrc) {
-        return axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
+        return await axios.post(`admin/${jwt}/product-remove-description-image`, imageSrc);
     },
 
     create: async function (jwt, form) {

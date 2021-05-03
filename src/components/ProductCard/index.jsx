@@ -15,7 +15,7 @@ export default function ProductCard({ img, price, oldPrice, isNovelty, name }) {
                 {isNovelty && <span className='ProductCard__novelty'>Новинка</span>}
             </a>
             <a className='ProductCard__name' href='/'>{name}</a>
-            <span className='ProductCard__price'>{price} {oldPrice && <span>{oldPrice} грн</span>}</span>
+            <span className='ProductCard__price'>{price} грн {!!oldPrice && <span>{oldPrice} грн</span>}</span>
             <div className='ProductCard__hiden'>
                 <a href='/'>Купить</a>
                 <span className='ProductCard__hiden__heart checked'><span><i aria-hidden className="far fa-heart" /></span></span>

@@ -10,6 +10,9 @@ import Footer from './../../src/sections/Footer/index';
 
 
 export default function Catalog() {
+
+    const character = 'Мужской';
+
     return (
         <div>
             <Head><title>Time Shop | For man</title></Head>
@@ -18,8 +21,8 @@ export default function Catalog() {
             <Header activeTab={0} />
 
             <CatalogHeader title='Мужские' bannerImgSrc='/assets/images/catalogs-headers/man-watches.png' />
-            <Filter />
-            <CatalogProducts />
+            {/* <Filter /> */}
+            <CatalogProducts character={character} />
             <ViewedProducts />
 
             <Footer />

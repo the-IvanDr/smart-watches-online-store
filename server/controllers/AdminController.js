@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
 const { User, Brand, Type, Product, ProductDetails } = require('../models/models');
+const { Op } = require('sequelize');
 
 
 const PATH_STATIC_IMAGES_PRODUCT_DESCRIPTION = path.resolve(__dirname, '..', 'static', 'images', 'products', 'description');
@@ -152,6 +153,50 @@ exports.product = {
 
                 return { ...product.dataValues, brand, type };
             }));
+
+            res.json({ products });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    GetByFilter: async (req, res) => {
+        try {
+            console.log('req.body', req.body);
+
+            const { character, icons, price, brands, sort } = req.body;
+
+            let filter = {};
+
+            // Sorting by character
+            if (character == 'Женский') filter.is_for_woman = true;
+            if (character == 'Мужской') filter.is_for_man = true;
+            if (character == 'Детский') filter.is_for_kids = true;
+
+            // Sorting by icons
+            if (icons.novelty) filter.is_novelty = true;
+            if (icons.hit) filter.is_hit = true;
+
+            // Sorting by price
+            if (price.min !== null) filter.price = { [Op.between]: [price.min, price.max] };
+
+            // Sorting by brands
+            const chosenBrands = brands.filter(brand => brand.active);
+            if (chosenBrands.length) {
+                Object.assign(filter, {
+                    brandId: { [Op.in]: chosenBrands.map(brand => brand.id) }
+                });
+            }
+
+            // Order
+            const order = [];
+            const chosenSort = sort.find(item => item.active);
+            if(chosenSort.name === 'cheaper-first') order.push(['price', 'ASC']);
+            else if (chosenSort.name === 'by-name') order.push(['name', 'ASC']);
+
+            const products = await Product.findAll({ where: filter, order });
 
             res.json({ products });
 

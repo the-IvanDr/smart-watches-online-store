@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeField } from '../../redux/actions/filterActions';
 
 export default function PriceRangeInput() {
     // Constances
-    const MAX_RANGE_VALUE = 9999;
+    const MAX_RANGE_VALUE = 50000;
     const MIN_RANGE_VALUE = 0;
 
     // Main states: range start/end, full width of the slider line for percentage
@@ -20,6 +22,10 @@ export default function PriceRangeInput() {
     const endStick_ref = useRef();
     const fullLine_ref = useRef();
     const rangeLine_ref = useRef();
+
+    // Reducer
+    const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch();
 
 
     // Get the width of the line for calculating the percentage
@@ -175,7 +181,7 @@ export default function PriceRangeInput() {
                     value={endRange}
                     onChange={(ev) => rangeOnChangeHandler(ev, 'end')}
                 />
-                <button>ОК</button>
+                <button onClick={() => dispatch(changeField('price', { min: +startRange, max: +endRange }))}>ОК</button>
             </div>
             {/* ====================== UP Part of the Slider END ======================== */}
 

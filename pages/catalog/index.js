@@ -18,7 +18,7 @@ export default function Catalog() {
             <Header />
 
             <CatalogHeader title='Каталог' bannerImgSrc='assets/images/catalogs-headers/catalog.png' />
-            <Filter />
+            {/* <Filter /> */}
             <CatalogProducts />
             <ViewedProducts />
 

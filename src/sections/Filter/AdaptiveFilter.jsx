@@ -15,6 +15,7 @@ export default function AdaptiveFilter() {
         setIsBrandsListActive(false);
     }
 
+
     return (
         <>
             <Substrate isActive={isMenuActive} onClick={closeMenu} />

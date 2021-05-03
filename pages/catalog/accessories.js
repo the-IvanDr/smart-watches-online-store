@@ -18,7 +18,7 @@ export default function Catalog() {
             <Header activeTab={3} />
 
             <CatalogHeader title='Аксессуары' bannerImgSrc='/assets/images/catalogs-headers/accessories.png' />
-            <Filter />
+            {/* <Filter /> */}
             <CatalogProducts />
             <ViewedProducts />
 
