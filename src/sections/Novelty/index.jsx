@@ -10,7 +10,7 @@ export default function Novelty(props) {
     const [products, setProducts] = useState([]);
     useEffect(async () => {
         const response = await APIQuery.Products.getNovelty();
-        setProducts([...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products,...response.data.products]);
+        setProducts([...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products, ...response.data.products]);
         console.log(response.data.products);
     }, []);
 
@@ -27,6 +27,7 @@ export default function Novelty(props) {
                         oldPrice={product.discount && (product.price * product.discount) / 100}
                         price={product.price}
                         isNovelty={product.is_novelty}
+                        productId={product.id}
                     />
                 })}
             </Carousel>

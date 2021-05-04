@@ -33,6 +33,10 @@ export const Products = {
         return await axios.get(`admin/product-get-novelty`);
     },
 
+    getById: async function(productId){
+        return await axios.get(`admin/product-get/${productId}`);
+    },
+
     getByFilter: async function (filter) {
         return await axios.post(`admin/product-get-by-filter`, filter);
     },

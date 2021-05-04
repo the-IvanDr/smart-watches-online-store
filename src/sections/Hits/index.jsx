@@ -27,6 +27,7 @@ export default function Hits(props) {
                         oldPrice={product.discount && (product.price * product.discount) / 100}
                         price={product.price}
                         isNovelty={product.is_novelty}
+                        productId={product.id}
                     />
                 })}
 

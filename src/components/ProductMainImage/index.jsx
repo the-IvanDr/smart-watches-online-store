@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 
-export default function ProductMainImage() {
+export default function ProductMainImage({ product }) {
     const [isModalImageActive, setIsModalImageActive] = useState(false);
 
     // If isModalImageActive is TRUE - hide the scroll bar
@@ -21,11 +21,11 @@ export default function ProductMainImage() {
             {/* ======================== MODAL START ======================== */}
             <div className={clsx('ModalImage', isModalImageActive && 'active')}>
                 <div className='ModalImage__title'>
-                    Смарт-часы HUAWEI Watch GT Classic
+                    {product.name}
                     <button onClick={() => setIsModalImageActive(false)}><i className="fas fa-times" aria-hidden="true" /></button>
                 </div>
                 <div className='ModalImage__image'>
-                    <img src='../assets/images/products/amazfit__verge.jpeg' alt='amazfit-verge' />
+                    <img src={product.imageSrc} alt={product.name} />
                 </div>
             </div>
             {/* ======================== MODAL END ======================== */}
@@ -35,17 +35,21 @@ export default function ProductMainImage() {
                 <img
                     onClick={() => setIsModalImageActive(true)}
                     className='ProductMainImage__image'
-                    src='../assets/images/products/amazfit__verge.jpeg' alt='amazfit-verge'
+                    src={product.imageSrc} alt={product.name}
                 />
 
                 <Link href='/'>
                     <a className='ProductMainImage__brand-icon'>
-                        <img src='../assets/images/brands/amazfit.png' alt='amazfit' />
+                        <img src={product.brand.logoSrc} alt={product.brand.name} />
                     </a>
                 </Link>
 
                 <span className='ProductMainImage__marker'>
-                    Новинка
+                    {
+                        (product.is_hit && product.is_novelty && "Хит / Новинка")
+                        || (product.is_hit && 'Хит')
+                        || (product.is_novelty && 'Новинка')
+                    }
                 </span>
             </div>
             {/* ======================== MAIN BLOCK END ======================== */}

@@ -162,13 +162,41 @@ exports.product = {
         }
     },
 
+    GetById: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const product = await Product.findOne({ where: { id } });
+            const details = await ProductDetails.findOne({ where: { id: product.productDetailId } });
+            const brand = await Brand.findOne({ where: { id: product.brandId } });
+
+            delete product.dataValues.brandId;
+
+            res.json({ product: { ...product.dataValues, details, brand } });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     GetByFilter: async (req, res) => {
         try {
             console.log('req.body', req.body);
 
-            const { character, icons, price, brands, sort } = req.body;
+            const { typeId, character, icons, price, brands, sort } = req.body;
+
+
 
             let filter = {};
+
+            filter.typeId = typeId;
+
+            // If filter by straps, then return all products - straps
+            if (filter.typeId === 2) {
+                const products = await Product.findAll({ where: filter });
+                return res.json({ products });
+            }
 
             // Sorting by character
             if (character == 'Женский') filter.is_for_woman = true;
@@ -193,16 +221,16 @@ exports.product = {
             // Order
             const order = [];
             const chosenSort = sort.find(item => item.active);
-            if(chosenSort.name === 'cheaper-first') order.push(['price', 'ASC']);
+            if (chosenSort.name === 'cheaper-first') order.push(['price', 'ASC']);
             else if (chosenSort.name === 'by-name') order.push(['name', 'ASC']);
 
             const products = await Product.findAll({ where: filter, order });
 
-            res.json({ products });
+            return res.json({ products });
 
         } catch (error) {
             console.log("Error: ", error.message);
-            res.status(500).json({ error: error.message });
+            return res.status(500).json({ error: error.message });
         }
     },
 

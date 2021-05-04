@@ -8,16 +8,17 @@ import { changeField } from '../../redux/actions/filterActions';
 import Filter from '../Filter';
 
 
-export default function CatalogProducts({ character }) {
+export default function CatalogProducts({ character, accessories }) {
 
     const [products, setProducts] = useState([]);
     const filter = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('useEffect');
+        if (accessories) dispatch(changeField('typeId', 2));
+        else dispatch(changeField('typeId', 1));
         dispatch(changeField('character', character));
-        
+
     }, []);
 
 
@@ -29,7 +30,7 @@ export default function CatalogProducts({ character }) {
 
     return (
         <>
-            <Filter />
+            {!accessories && <Filter />}
             <div className='CatalogProducts'>
                 {products.map(product => {
                     return <ProductCard
@@ -39,6 +40,7 @@ export default function CatalogProducts({ character }) {
                         oldPrice={product.discount && (product.price * product.discount) / 100}
                         price={product.price}
                         isNovelty={product.is_novelty}
+                        productId={product.id}
                     />
                 })}
             </div>

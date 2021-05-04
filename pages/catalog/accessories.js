@@ -19,7 +19,7 @@ export default function Catalog() {
 
             <CatalogHeader title='Аксессуары' bannerImgSrc='/assets/images/catalogs-headers/accessories.png' />
             {/* <Filter /> */}
-            <CatalogProducts />
+            <CatalogProducts accessories />
             <ViewedProducts />
 
             <Footer />

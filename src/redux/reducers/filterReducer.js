@@ -1,6 +1,7 @@
 import * as types from '../types.js';
 
 const initialState = {
+    typeId: 1, // 1 - wathces | 2 - strap
     character: null,
     icons: {
         novelty: false,

@@ -5,6 +5,7 @@ const AdminController = require('../controllers/AdminController');
 const router = Router();
 
 // PRODUCTS
+router.get('/product-get/:id', AdminController.product.GetById);
 router.get('/product-get-list', AdminController.product.GetList);
 router.get('/product-get-hits', AdminController.product.GetHits);
 router.get('/product-get-novelty', AdminController.product.GetNovelty);

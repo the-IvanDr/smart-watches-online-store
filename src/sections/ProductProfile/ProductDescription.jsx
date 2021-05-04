@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
 
-export default function ProductDescription() {
+export default function ProductDescription({product}) {
     const [isDescriptionMenuActive, setDescriptionMenuActive] = useState(false);
+
+    const shortDescr = useRef();
+    const fullDescr = useRef();
+
 
     useEffect(() => {
         document.body.style.overflow = isDescriptionMenuActive ? 'hidden' : 'auto';
     }, [isDescriptionMenuActive]);
+
+    useEffect(() => {
+        shortDescr.current.innerHTML = product.description.split('</p>')[0];
+        fullDescr.current.innerHTML = product.description;
+    }, []);
 
 
 
@@ -16,8 +25,10 @@ export default function ProductDescription() {
             <div className='ProductProfile__description -short'>
                 <h4 className='ProductProfile__description__title'>Описание</h4>
 
-                <h4 className='ProductProfile__description__title'>Спортивные часы Xiaomi Amazfit Verge</h4>
-                <p>Xiaomi Amazfit Verge – умные часы, которые получили 11 спортивных режимов. С ними вам не придется доставать телефон, чтобы посмотреть уведомления, воспользоваться картой или принять телефонный звонок.</p>
+                <div ref={shortDescr}></div>
+                {/* <h4 className='ProductProfile__description__title'>Спортивные часы Xiaomi Amazfit Verge</h4>
+                <p>Xiaomi Amazfit Verge – умные часы, которые получили 11 спортивных режимов. С ними вам не придется доставать телефон, чтобы посмотреть уведомления, воспользоваться картой или принять телефонный звонок.</p> */}
+                
                 <button
                     className='ProductProfile__description__open-full-btn'
                     onClick={() => setDescriptionMenuActive(true)}
@@ -36,7 +47,7 @@ export default function ProductDescription() {
                         ✖
                     </button>
                 </h4>
-                <div className='ProductProfile__description__main-wrapper'>
+                <div className='ProductProfile__description__main-wrapper' ref={fullDescr}>
                 
                     <h4 className='ProductProfile__description__title'>Спортивные часы Xiaomi Amazfit Verge</h4>
                     <p>Xiaomi Amazfit Verge – умные часы, которые получили 11 спортивных режимов. С ними вам не придется доставать телефон, чтобы посмотреть уведомления, воспользоваться картой или принять телефонный звонок.</p>
