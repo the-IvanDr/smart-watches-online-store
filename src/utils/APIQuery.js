@@ -68,6 +68,16 @@ export const Products = {
     }
 }
 
+export const Feedbacks = {
+    getByProductId: async function(productId){
+        return await axios.get(`client/feedback/by-product-id/${productId}`);
+    },
+
+    create: async function(jwt, feedback){
+        return await axios.post(`client/${jwt}/feedback/create`, feedback);
+    }
+}
+
 export const Brands = {
     getList: async function () {
         return await axios.get(`admin/brand-get-list`);

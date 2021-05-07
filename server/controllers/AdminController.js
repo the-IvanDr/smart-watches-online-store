@@ -182,11 +182,7 @@ exports.product = {
 
     GetByFilter: async (req, res) => {
         try {
-            console.log('req.body', req.body);
-
             const { typeId, character, icons, price, brands, sort } = req.body;
-
-
 
             let filter = {};
 

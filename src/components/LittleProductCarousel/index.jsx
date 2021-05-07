@@ -4,7 +4,7 @@ import Carousel from '../Carousel/index';
 import ProductCard from '../ProductCard/index';
 
 
-export default function LittleProductCarousel({ ElementsCountToShow }) {
+export default function LittleProductCarousel({ ElementsCountToShow, products }) {
     const blockRef = useRef();
 
     useEffect(() => {
@@ -15,41 +15,22 @@ export default function LittleProductCarousel({ ElementsCountToShow }) {
             item.style.width = 100 / ElementsCountToShow - 1.9 + '%';
         });
 
-    }, [])
+    }, [products])
 
     return (
         <div className='LittleProductCarousel' ref={blockRef}>
             <Carousel amountShowedElems={ElementsCountToShow}>
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
-                <ProductCard
-                    img='../assets/images/products/amazfit__verge.jpg'
-                />
+                {products && products.map(product => {
+                    return <ProductCard
+                        key={`product-hit-${product.id}`}
+                        name={product.name}
+                        img={product.imageSrc}
+                        oldPrice={product.discount && (product.price * product.discount) / 100}
+                        price={product.price}
+                        isNovelty={product.is_novelty}
+                        productId={product.id}
+                    />
+                })}
             </Carousel>
         </div>
     )

@@ -98,7 +98,9 @@ const Feedback = sequelize.define('feedback', {
 
     rate: { type: DataTypes.SMALLINT, allowNull: false, defaultValue: 1 },
     text: { type: DataTypes.TEXT, allowNull: false },
-    time: { type: DataTypes.DATE, allowNull: false, defaultValue: NOW }
+    time: { type: DataTypes.DATE, allowNull: false, defaultValue: NOW },
+    user_name: { type: DataTypes.STRING, allowNull: false },
+    user_email: { type: DataTypes.STRING, allowNull: false }
 });
 User.hasMany(Feedback);
 Product.hasMany(Feedback);

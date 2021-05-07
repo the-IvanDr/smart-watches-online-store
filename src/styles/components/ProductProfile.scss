@@ -360,6 +360,10 @@
         border-top: 1px solid #00000022;
         margin-top: 40px;
 
+        .not-auth-message{
+            text-decoration: underline;
+        }
+
         &__title {
             padding-top: 20px;
             font-weight: 600;

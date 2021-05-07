@@ -9,10 +9,6 @@ import GoUp from './../../src/components/GoUp/index';
 
 
 export default function Product({ product }) {
-
-
-    console.log('product', product);
-
     return (
         <div className='Product'>
             <Header />

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import * as APIQuery from '../../utils/APIQuery';
 
 import ProductMainImage from '../../components/ProductMainImage';
 import Breadcrumbs from './../../components/Breadcrumbs/index';
@@ -8,18 +9,35 @@ import FeedbackSection from './FeedbackSection';
 import Tabs from './Tabs';
 import ProductDescription from './ProductDescription';
 import ProductDetails from './ProductDetails';
+import { useSelector } from 'react-redux';
 
 
 export default function ProductProfile({ product }) {
 
-    const OtherProducts = () => (
-        <>
-            <div className='ProductProfile__similar-products'>
-                <div className='ProductProfile__section-title'>Похожие товары</div>
-                <LittleProductCarousel ElementsCountToShow={4} />
-            </div>
-        </>
+
+    const [similarProducts, setSimilarProducts] = useState([]);
+    const filter = useSelector(state => state.filter);
+
+    useEffect(async () => {
+        const specifiedFilter = {
+            ...filter,
+            typeId: product.typeId,
+            character: (product.is_for_kids && 'Детский') || (product.is_for_man && 'Мужской') || (product.is_for_woman && 'Женский')
+        };
+
+        const response = await APIQuery.Products.getByFilter(specifiedFilter);
+        setSimilarProducts(response.data.products);
+
+    }, []);
+
+
+    const SimilarProducts = (
+        <div className='ProductProfile__similar-products'>
+            <div className='ProductProfile__section-title'>Похожие товары</div>
+            { similarProducts && <LittleProductCarousel ElementsCountToShow={4} products={similarProducts} />}
+        </div>
     );
+
 
     return (
         <div className='ProductProfile'>
@@ -28,7 +46,7 @@ export default function ProductProfile({ product }) {
                 <div className='ProductProfile__flex-wrap__left'>
                     <div className='ProductProfile__flex-wrap__left__wrap'>
                         <ProductMainImage product={product} />
-                        <FeedbackSection product={product} />
+                        <FeedbackSection productId={product.id} />
                     </div>
                 </div>
                 {/* ========================== LEFT SIDE END =========================== */}
@@ -61,7 +79,7 @@ export default function ProductProfile({ product }) {
 
                         <Tabs />
                         <ProductDetails details={product.details} />
-                        <OtherProducts />
+                        {SimilarProducts}
                     </div>
 
                 </div>
@@ -102,9 +120,9 @@ export default function ProductProfile({ product }) {
 
             {/* ========================== PART FOR SMALL WIDHT SCREEN START =========================== */}
             <div className='ProductProfile__adapt'>
-                <FeedbackSection />
+                <FeedbackSection productId={product.id} />
                 <Tabs />
-                <OtherProducts />
+                {SimilarProducts}
             </div>
             {/* ========================== PART FOR SMALL WIDHT SCREEN END =========================== */}
 

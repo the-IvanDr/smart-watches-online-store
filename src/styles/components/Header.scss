@@ -89,6 +89,7 @@
                 z-index: 10;
 
                 &.active {
+                    z-index: 999;
                     display: block;
                     animation: auth-dropdown-menu-fadein 0.1s 1 linear forwards;
                 }
