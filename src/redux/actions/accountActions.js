@@ -87,9 +87,9 @@ export const login = (logData) => async dispatch => {
             if (response.data.success) {
                 return dispatch({
                     type: types.AUTH_LOG_SUCCESS,
-                    payload: { 
+                    payload: {
                         token: response.data.token,
-                        userData: response.data.userData            
+                        userData: response.data.userData
                     }
                 });
             } else throw new Error(response.data.message);
@@ -125,7 +125,7 @@ export const registration = (regData) => async dispatch => {
             if (response.data.success) {
                 return dispatch({
                     type: types.AUTH_REG_SUCCESS,
-                    payload: { 
+                    payload: {
                         token: response.data.token,
                         userData: response.data.userData
                     }
@@ -146,4 +146,55 @@ export const registration = (regData) => async dispatch => {
 
 export const logout = () => {
     return { type: types.AUTH_LOGOUT }
+}
+
+
+export const cartActions = {
+    add: (jwt, data) => async dispatch => {
+        await APIQuery.Cart.add(jwt, data);
+        const response = await APIQuery.Cart.get(jwt);
+
+        return dispatch({
+            type: types.CART_UPDATE,
+            payload: {
+                cart: response.data.data
+            }
+        });
+    },
+
+    get: (jwt) => async dispatch => {
+        const response = await APIQuery.Cart.get(jwt);
+
+        console.log('response.data.data: ', typeof response.data.data);
+        return dispatch({
+            type: types.CART_UPDATE,
+            payload: {
+                cart: response.data.data
+            }
+        });
+    },
+
+    setAmount: (jwt, basketId, value) => async dispatch => {
+        await APIQuery.Cart.setAmount(jwt, basketId, value);
+        const response = await APIQuery.Cart.get(jwt);
+        return dispatch({
+            type: types.CART_UPDATE,
+            payload: {
+                cart: response.data.data
+            }
+        });
+    },
+
+    delete: (jwt, basketId) => async dispatch => {
+        await APIQuery.Cart.delete(jwt, basketId);
+        const response = await APIQuery.Cart.get(jwt);
+
+        
+        return dispatch({
+            type: types.CART_UPDATE,
+            payload: {
+                cart: response.data.data
+            }
+        });
+    }
 }

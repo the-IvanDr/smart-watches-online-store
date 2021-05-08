@@ -78,6 +78,24 @@ export const Feedbacks = {
     }
 }
 
+export const Cart = {
+    add: async function(jwt, data){
+        return await axios.post(`client/${jwt}/cart/add/`, data);
+    },
+
+    get: async function(jwt){
+        return await axios.get(`client/${jwt}/cart/get`);
+    },
+
+    setAmount: async function(jwt, basketId, value){
+        return await axios.post(`client/${jwt}/cart/${basketId}/set-amount/${value}`);
+    },
+
+    delete: async function(jwt, basketId){
+        return await axios.post(`client/${jwt}/cart/${basketId}/delete`);
+    }
+}
+
 export const Brands = {
     getList: async function () {
         return await axios.get(`admin/brand-get-list`);

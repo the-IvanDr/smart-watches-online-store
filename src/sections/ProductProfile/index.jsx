@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as APIQuery from '../../utils/APIQuery';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartActions } from '../../redux/actions/accountActions';
 
 import ProductMainImage from '../../components/ProductMainImage';
 import Breadcrumbs from './../../components/Breadcrumbs/index';
@@ -9,14 +11,16 @@ import FeedbackSection from './FeedbackSection';
 import Tabs from './Tabs';
 import ProductDescription from './ProductDescription';
 import ProductDetails from './ProductDetails';
-import { useSelector } from 'react-redux';
 
 
 export default function ProductProfile({ product }) {
 
 
     const [similarProducts, setSimilarProducts] = useState([]);
+    const jwt = useSelector(state => state.auth.authData.token);
     const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch();
+
 
     useEffect(async () => {
         const specifiedFilter = {
@@ -29,6 +33,14 @@ export default function ProductProfile({ product }) {
         setSimilarProducts(response.data.products);
 
     }, []);
+
+
+    const addToBusket = () => {
+        dispatch(cartActions.add(jwt, {
+            productId: product.id
+        }));
+    }
+
 
 
     const SimilarProducts = (
@@ -73,7 +85,7 @@ export default function ProductProfile({ product }) {
                         </div>
 
                         <div className='ProductProfile__main-buttons'>
-                            <button className='ProductProfile__buy-button'>Купить</button>
+                            <button className='ProductProfile__buy-button' onClick={addToBusket}>Купить</button>
                             <button className='ProductProfile__fast-order-button'>Быстрый заказ</button>
                         </div>
 

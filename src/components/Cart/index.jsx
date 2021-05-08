@@ -1,12 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartActions } from '../../redux/actions/accountActions';
 import clsx from 'clsx';
 
-import {isWidthEnough} from '../../utils/screenHelper.js';
+import { isWidthEnough } from '../../utils/screenHelper.js';
 
 import Substrate from '../Substrate';
+import CartItem from './CartItem';
+import AdaptCartItem from './AdaptCartItem';
 
 
 export default function Cart({ isActive, toggleCart }) {
+
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const jwt = useSelector(state => state.auth.authData.token);
+    const basket = useSelector(state => state.auth.authData.basket);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!jwt) return;
+        console.log('fetch basket from api');
+        dispatch(cartActions.get(jwt));
+
+    }, []);
+
+    useEffect(() => {
+        console.log('cart loaded', basket);
+        if (basket.length < 1) return;
+
+        const total = basket.length > 1 ? basket.reduce((prev, current) => prev.total_price + current.total_price) : basket[0].total_price;
+        setTotalPrice(total);
+
+    }, [basket]);
+
+    const changeAmount = (basketId, value) => {
+        if (value <= 0) return;
+        dispatch(cartActions.setAmount(jwt, basketId, value));
+    }
+
+    const deleteItem = (basketId) => {
+        dispatch(cartActions.delete(jwt, basketId));
+    }
+
+
     return (
         <>
             <Substrate isActive={isActive} onClick={toggleCart} />
@@ -25,68 +62,22 @@ export default function Cart({ isActive, toggleCart }) {
                             </div>
                         </div>
 
+                        {
+                            basket.map(item => (
+                                <CartItem
+                                    key={item.id}
+                                    imgSrc={item.product.imageSrc}
+                                    name={item.product.name}
+                                    price={item.product.price}
+                                    amount={item.amount}
+                                    totalPrice={item.total_price}
 
-                        {/********************************
-                            Dinamic part of markup START 
-                        **********************************/}
-                        <div className='ModalCart__table__row'>
-                            <button className='ModalCart__table__row__delete-btn'>
-                                <i aria-hidden className="fas fa-trash-alt" />
-                            </button>
-
-                            <div className='ModalCart__table__image'>
-                                <img src='../assets/images/products/huawei_gt_classic.jpg' alt='product-img' />
-                            </div>
-
-                            <div className='ModalCart__table__details'>
-                                <div className='ModalCart__table__details__title'>Смарт-часы HUAWEI Watch GT Classic</div>
-                                <div className='ModalCart__table__details__price'>5 999 грн</div>
-                            </div>
-
-                            <div className='ModalCart__table__amount'>
-                                <div className='ModalCart__table__amount__input'>
-                                    <button className='decrease'>—</button>
-                                    <input type='number' min='1' max='9999' />
-                                    <button className='increase'>+</button>
-                                </div>
-                            </div>
-
-                            <div className='ModalCart__table__cost'>
-                                <span>20 000 грн</span>
-                            </div>
-                        </div>
-
-                        <div className='ModalCart__table__row'>
-                            <button className='ModalCart__table__row__delete-btn'>
-                                <i aria-hidden className="fas fa-trash-alt" />
-                            </button>
-
-                            <div className='ModalCart__table__image'>
-                                <img src='../assets/images/products/huawei_gt_classic.jpg' alt='product-img' />
-                            </div>
-
-                            <div className='ModalCart__table__details'>
-                                <div className='ModalCart__table__details__title'>Смарт-часы HUAWEI Watch GT Classic</div>
-                                <div className='ModalCart__table__details__price'>5 999 грн</div>
-                            </div>
-
-                            <div className='ModalCart__table__amount'>
-                                <div className='ModalCart__table__amount__input'>
-                                    <button className='decrease'>—</button>
-                                    <input type='number' min='1' max='9999' />
-                                    <button className='increase'>+</button>
-                                </div>
-                            </div>
-
-                            <div className='ModalCart__table__cost'>
-                                <span>20 000 грн</span>
-                            </div>
-                        </div>
-                        {/********************************
-                            Dinamic part of markup END 
-                        **********************************/}
-
-
+                                    increaseHandler={() => changeAmount(item.id, item.amount + 1)}
+                                    decreaseHandler={() => changeAmount(item.id, item.amount - 1)}
+                                    deleteHandler={() => deleteItem(item.id)}
+                                />
+                            ))
+                        }
 
                         <div className='ModalCart__table__row'>
                             <button className='ModalCart__table__continue-shopping' onClick={toggleCart}>
@@ -94,13 +85,14 @@ export default function Cart({ isActive, toggleCart }) {
                                 Вернуться к покупкам
                             </button>
                             <div className='ModalCart__table__summary'>
-                                <div className='ModalCart__table__summary__price'>Итого <span>29 997 грн</span></div>
+                                <div className='ModalCart__table__summary__price'>Итого <span>{totalPrice} грн</span></div>
                                 <a href='/' className='ModalCart__table__summary__checkout-btn'>Оформить заказ</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className={clsx('AdaptiveCart', isActive && 'active')}>
                 <div className='AdaptiveCart__title'>
                     Корзина
@@ -108,60 +100,24 @@ export default function Cart({ isActive, toggleCart }) {
                 </div>
 
                 <div className='AdaptiveCart__list'>
-                    <div className='AdaptiveCart__list__item'>
-                        <img src='../assets/images/products/amazfit__verge.jpg' alt='watch' />
-                        <div className='AdaptiveCart__list__item__right-block'>
-                            <div className='AdaptiveCart__list__item__title'>Смарт-часы HUAWEI Watch GT Classic</div>
-                            <div className='AdaptiveCart__list__item__price'>5 999 грн</div>
-                            <div className='AdaptiveCart__list__item__inputs'>
-                                <div className='select'>
-                                    <i aria-hidden className="fas fa-chevron-down" />
-                                    <select>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10+</option>
-                                    </select>
-                                </div>
-                                <button><i aria-hidden className="fas fa-trash-alt" /></button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className='AdaptiveCart__list__item'>
-                        <img src='../assets/images/products/amazfit__verge.jpg' alt='watch' />
-                        <div className='AdaptiveCart__list__item__right-block'>
-                            <div className='AdaptiveCart__list__item__title'>Смарт-часы HUAWEI Watch GT Classic</div>
-                            <div className='AdaptiveCart__list__item__price'>5 999 грн</div>
-                            <div className='AdaptiveCart__list__item__inputs'>
-                                <div className='select'>
-                                    <i aria-hidden className="fas fa-chevron-down" />
-                                    <select>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10+</option>
-                                    </select>
-                                </div>
-                                <button><i aria-hidden className="fas fa-trash-alt" /></button>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        basket.map(item => (
+                            <AdaptCartItem
+                                key={item.id}
+                                imgSrc={item.product.imageSrc}
+                                name={item.product.name}
+                                price={item.product.price}
+                                amount={item.amount}
+
+                                changeAmountHandler={(value) => changeAmount(item.id, value)}
+                                deleteHandler={() => deleteItem(item.id)}
+                            />
+                        ))
+                    }
                 </div>
 
-                <div className='AdaptiveCart__total-price'>15 998 грн</div>
+                <div className='AdaptiveCart__total-price'>{totalPrice} грн</div>
                 <a href='/' className='AdaptiveCart__checkout-btn'>Оформить заказ</a>
             </div>
         </>

@@ -23,7 +23,13 @@ export default function Header(props) {
 
     const isAuth = !!(useSelector(state => state.auth.authData.token));
     const authData = useSelector(state => state.auth.authData);
+    const basket = useSelector(state => state.auth.authData.basket);
     const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        console.log('basket changed. Open basket to show changes');
+    }, [basket]);
 
 
     const logoutHandler = () => {
@@ -140,7 +146,7 @@ export default function Header(props) {
                     <button className='Header__acc-menu__basket' onClick={toggleCart}>
                         <div className='Header__acc-menu__basket__left'>
                             <i aria-hidden className="fas fa-shopping-cart" />
-                            <span>2</span>
+                            {basket.length > 0 && <span>{basket.length}</span>}
                         </div>
                         <div className='Header__acc-menu__basket__right'>
                             <div className='Header__acc-menu__basket__title'>Мой заказ</div>

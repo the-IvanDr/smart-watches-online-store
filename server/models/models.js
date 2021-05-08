@@ -111,7 +111,8 @@ Feedback.belongsTo(Product);
 // Корзина: связь
 const Basket = sequelize.define('basket', {
     id: ID_TYPE,
-    total_price: DataTypes.INTEGER
+    total_price: {type: DataTypes.INTEGER, allowNull: false},
+    amount: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 });
 Product.hasMany(Basket);
 User.hasOne(Basket);

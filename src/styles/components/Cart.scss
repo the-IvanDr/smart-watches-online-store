@@ -10,7 +10,7 @@
     height: 110%;
     background: #fff;
     padding-top: $adapt-menu-title-height;
-    z-index: 101;
+    z-index: 999999901;
     overflow-y: auto;
 
     transition: all $menu-transition-time-1;
@@ -75,6 +75,10 @@
             &__inputs {
                 display: flex;
                 margin-top: 20px;
+
+                input{
+                    margin-right: 30px;
+                }
 
                 .select {
                     position: relative;
@@ -154,7 +158,7 @@
     height: 100%;
     display: none;
     overflow-y: auto;
-    z-index: 101;
+    z-index: 991;
 
     &.active {
         display: block;
