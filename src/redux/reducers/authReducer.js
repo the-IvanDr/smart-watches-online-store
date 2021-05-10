@@ -329,9 +329,9 @@ const AUTH_LOGOUT_Handler = (state) => {
 const CART_UPDATE_Handler  = (state, action) => {
     console.log('CART_UPDATE', action.payload);
 
-
     const BASKET = action.payload.cart;
 
+    // return state;
 
     return {
         ...state,

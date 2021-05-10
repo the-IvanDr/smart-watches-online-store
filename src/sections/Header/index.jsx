@@ -21,6 +21,7 @@ export default function Header(props) {
     const [isCartActive, setIsCartActive] = useState(false);
     const [isAuthorizationActive, setIsAuthorizationActive] = useState(false);
 
+    const [totalCartPrice, setTotalCartPrice] = useState(0);
     const isAuth = !!(useSelector(state => state.auth.authData.token));
     const authData = useSelector(state => state.auth.authData);
     const basket = useSelector(state => state.auth.authData.basket);
@@ -28,7 +29,10 @@ export default function Header(props) {
 
 
     useEffect(() => {
-        console.log('basket changed. Open basket to show changes');
+        if(!basket || basket.length < 1) return;
+        const total = basket.length > 1 ? basket.reduce((prev, current) => prev.total_price + current.total_price) : basket[0].total_price;
+        setTotalCartPrice(total);
+
     }, [basket]);
 
 
@@ -61,6 +65,7 @@ export default function Header(props) {
             setIsAuthorizationActive(false);
             document.body.style.overflow = 'auto';
         }
+
     }, [isAuth]);
 
     return (
@@ -146,11 +151,11 @@ export default function Header(props) {
                     <button className='Header__acc-menu__basket' onClick={toggleCart}>
                         <div className='Header__acc-menu__basket__left'>
                             <i aria-hidden className="fas fa-shopping-cart" />
-                            {basket.length > 0 && <span>{basket.length}</span>}
+                            {basket && basket.length > 0 && <span>{basket.length}</span>}
                         </div>
                         <div className='Header__acc-menu__basket__right'>
                             <div className='Header__acc-menu__basket__title'>Мой заказ</div>
-                            <div className='Header__acc-menu__basket__price'><span>4999</span> грн</div>
+                            <div className='Header__acc-menu__basket__price'><span>{totalCartPrice}</span> грн</div>
                         </div>
                     </button>
                     {/*================= Cart toggle Button END =======================*/}

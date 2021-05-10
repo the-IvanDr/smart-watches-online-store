@@ -100,6 +100,10 @@
                     border-radius: 3px;
                     background: #fff;
                     border: 1px solid rgba(0, 0, 0, 0.2);
+
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
 
                 select {

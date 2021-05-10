@@ -4,7 +4,7 @@ import { cartActions } from '../../redux/actions/accountActions';
 import clsx from 'clsx';
 
 import { isWidthEnough } from '../../utils/screenHelper.js';
-
+import Link from 'next/link';
 import Substrate from '../Substrate';
 import CartItem from './CartItem';
 import AdaptCartItem from './AdaptCartItem';
@@ -27,11 +27,12 @@ export default function Cart({ isActive, toggleCart }) {
 
     useEffect(() => {
         console.log('cart loaded', basket);
-        if (basket.length < 1) return;
+        if (!basket || basket.length < 1) return;
 
         const total = basket.length > 1 ? basket.reduce((prev, current) => prev.total_price + current.total_price) : basket[0].total_price;
         setTotalPrice(total);
 
+        return () => document.body.style.overflow = 'auto';
     }, [basket]);
 
     const changeAmount = (basketId, value) => {
@@ -63,6 +64,7 @@ export default function Cart({ isActive, toggleCart }) {
                         </div>
 
                         {
+                            basket &&
                             basket.map(item => (
                                 <CartItem
                                     key={item.id}
@@ -86,7 +88,7 @@ export default function Cart({ isActive, toggleCart }) {
                             </button>
                             <div className='ModalCart__table__summary'>
                                 <div className='ModalCart__table__summary__price'>Итого <span>{totalPrice} грн</span></div>
-                                <a href='/' className='ModalCart__table__summary__checkout-btn'>Оформить заказ</a>
+                                <Link href='/ordering' ><a className='ModalCart__table__summary__checkout-btn'>Оформить заказ</a></Link>
                             </div>
                         </div>
                     </div>
@@ -100,8 +102,8 @@ export default function Cart({ isActive, toggleCart }) {
                 </div>
 
                 <div className='AdaptiveCart__list'>
-
                     {
+                        basket && 
                         basket.map(item => (
                             <AdaptCartItem
                                 key={item.id}
@@ -118,7 +120,7 @@ export default function Cart({ isActive, toggleCart }) {
                 </div>
 
                 <div className='AdaptiveCart__total-price'>{totalPrice} грн</div>
-                <a href='/' className='AdaptiveCart__checkout-btn'>Оформить заказ</a>
+                <Link href='/ordering'><a className='AdaptiveCart__checkout-btn'>Оформить заказ</a></Link>
             </div>
         </>
     )

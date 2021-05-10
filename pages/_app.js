@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import store from '../src/redux/store.js';
 
 import '../src/styles/normalize.css';
+import 'react-phone-number-input/style.css';
 import '../src/styles/fonts.css';
 import '../src/styles/main.scss';
 
