@@ -27,5 +27,7 @@ router.get('/:token/cart/get', jwtChecker, ClientController.cart.get);
 router.post('/:token/cart/:cartId/set-amount/:value', jwtChecker, ClientController.cart.setAmount);
 router.post('/:token/cart/:cartId/delete', jwtChecker, ClientController.cart.delete)
 
+// Orders
+router.post('/:token/order/add', jwtChecker, ClientController.order.add);
 
 module.exports = router;

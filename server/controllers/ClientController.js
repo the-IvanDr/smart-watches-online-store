@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
-const { Op } = require('sequelize');
-const { User, Brand, Type, Product, ProductDetails, Feedback, Basket } = require('../models/models');
+const { Op, DataTypes } = require('sequelize');
+const { User, Brand, Type, Product, PlacedOrder, Feedback, Basket } = require('../models/models');
 
 
 exports.feedback = {
@@ -161,6 +161,44 @@ exports.cart = {
             await Basket.destroy({ where: { id: cartId } });
 
             res.json({ message: 'Товар удален из корзины' });
+
+        } catch (error) {
+            console.log("Error: ", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+exports.order = {
+    add: async (req, res) => {
+        try {
+            console.log(req.body);
+
+            const data = req.body;
+
+            const basket = await Basket.findAll({ where: { userId: data.jwtDecoded.userId } });
+            const basketValues = basket.map(item => item.dataValues);
+            if (basketValues.length < 1) return res.json({ success: false, message: 'Корзина пользователя пуста' });
+
+            console.log('basket', basketValues);
+
+            const order = await PlacedOrder.create({
+                time: new Date(),
+                total_price: basketValues.length > 1 ? basketValues.reduce((prev, current) => prev.total_price + current.total_price) : basketValues[0].total_price,
+                productId: basketValues[0].productId, // Не нужное поле
+                userId: data.jwtDecoded.userId,
+                phone_number: data.phoneNumber,
+                city: data.city,
+                customer_name: data.name,
+                warehouse: data.warehouse,
+                deliveryMethod: data.deliveryMethod,
+                paymentMethod: data.paymentMethod,
+                productsJSON: JSON.stringify(basketValues)
+            });
+
+            await Basket.destroy({ where: { userId: data.jwtDecoded.userId } });
+
+            res.json({ success: true, message: 'Заказ успешно создан' });
 
         } catch (error) {
             console.log("Error: ", error.message);

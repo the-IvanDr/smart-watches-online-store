@@ -96,6 +96,12 @@ export const Cart = {
     }
 }
 
+export const Order = {
+    add: async function(jwt, data){
+        return await axios.post(`client/${jwt}/order/add`, data);
+    }
+}
+
 export const Brands = {
     getList: async function () {
         return await axios.get(`admin/brand-get-list`);

@@ -23,7 +23,7 @@ export default function Cart({ isActive, toggleCart }) {
         console.log('fetch basket from api');
         dispatch(cartActions.get(jwt));
 
-    }, []);
+    }, [jwt]);
 
     useEffect(() => {
         console.log('cart loaded', basket);

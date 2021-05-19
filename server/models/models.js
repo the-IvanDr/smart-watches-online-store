@@ -111,7 +111,7 @@ Feedback.belongsTo(Product);
 // Корзина: связь
 const Basket = sequelize.define('basket', {
     id: ID_TYPE,
-    total_price: {type: DataTypes.INTEGER, allowNull: false},
+    total_price: { type: DataTypes.INTEGER, allowNull: false },
     amount: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 });
 Product.hasMany(Basket);
@@ -124,6 +124,14 @@ const PlacedOrder = sequelize.define('placed_order', {
     id: ID_TYPE,
     time: { type: DataTypes.DATE, allowNull: false, defaultValue: NOW },
     total_price: { type: DataTypes.INTEGER, allowNull: false },
+
+    phone_number: { type: DataTypes.STRING, allowNull: false },
+    customer_name: { type: DataTypes.STRING, allowNull: false },
+    city: { type: DataTypes.STRING, allowNull: false },
+    warehouse: { type: DataTypes.STRING },
+    deliveryMethod: { type: DataTypes.STRING },
+    paymentMethod: { type: DataTypes.STRING },
+    productsJSON: { type: DataTypes.JSON }
 });
 Product.hasMany(PlacedOrder);
 User.hasOne(PlacedOrder);
