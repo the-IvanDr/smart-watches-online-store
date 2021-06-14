@@ -19,6 +19,7 @@ class MyDocument extends Document {
                     />
                     
                     <script src="https://kit.fontawesome.com/4fa595bc50.js" crossOrigin="anonymous"></script>
+                    <title>Магазин смарт-часов</title>
                 </Head>
                 <body>
                     <Main />

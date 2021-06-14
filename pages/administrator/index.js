@@ -6,6 +6,7 @@ import AdminHeader from '../../src/sections/AdminHeader';
 import AdminProductsMenu from './../../src/sections/AdminProductsMenu/index';
 import AdminBrandsMenu from '../../src/sections/AdminBrandsMenu/AdminBrandsMenu';
 import AdminTypesMenu from '../../src/sections/AdminTypesMenu';
+import AdminOrdersMenu from '../../src/sections/AdminOrdersMenu';
 
 
 const isBrowser = typeof window !== 'undefined';
@@ -29,7 +30,7 @@ export default function AdminPannel() {
             <AdminHeader />
             {tabs.users && "USERS MENU"}
             {tabs.products && <AdminProductsMenu />}
-            {tabs.orders && 'ORDERS MENU'}
+            {tabs.orders && <AdminOrdersMenu />}
             {tabs.brands && <AdminBrandsMenu />}
             {tabs.types && <AdminTypesMenu />}
         </div>

@@ -47,4 +47,7 @@ router.get('/:token/type-get-list', isAdmin, AdminController.type.GetList)
 router.post('/:token/type-create', isAdmin, AdminController.type.Create);
 router.post('/:token/type-delete/:id', isAdmin, AdminController.type.Delete);
 
+// ORDERS
+router.get('/:token/order-get-list', isAdmin, AdminController.order.GetList);
+
 module.exports = router;

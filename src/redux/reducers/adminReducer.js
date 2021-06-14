@@ -106,6 +106,17 @@ const initialState = {
         createForm: {
             name: ''
         }
+    },
+
+    orders: {
+        tabs: {
+            list: true,
+            createForm: false,
+            view: false,
+            charts: false
+        },
+        view: null,
+        list: []
     }
 }
 
@@ -195,6 +206,19 @@ export default function adminReducer(state = initialState, action) {
 
         case types.ADMIN_TYPES_CREATE:
             return ADMIN_TYPES_CREATE_Handler(state, action);
+
+        // ORDERS
+        case types.ADMIN_ORDERS_GET_LIST:
+            return ADMIN_ORDERS_GET_LIST_Handler(state, action);
+
+        case types.ADMIN_ORDERS_TABS_VIEW:
+            return ADMIN_ORDERS_TABS_VIEW_Handler(state, action);
+
+        case types.ADMIN_ORDERS_TABS_LIST:
+            return ADMIN_ORDERS_TABS_LIST_Handler(state);
+
+        case types.ADMIN_ORDERS_TABS_CHARTS:
+            return ADMIN_ORDERS_TABS_CHARTS_Handler(state);
 
         default: return state;
     }
@@ -693,6 +717,80 @@ const ADMIN_TYPES_CREATE_Handler = (state, action) => {
         types: {
             ...state.types,
             createForm: FORM,
+            tabs: TABS
+        }
+    };
+}
+
+//===================== ORDERS =============================\\
+const ADMIN_ORDERS_GET_LIST_Handler = (state, action) => {
+    console.log("ADMIN_ORDERS_GET_LIST", action);
+
+    const ORDERS = action.payload.orders;
+
+    return {
+        ...state,
+        orders: {
+            ...state.orders,
+            list: ORDERS
+        }
+    };
+}
+
+const ADMIN_ORDERS_TABS_VIEW_Handler = (state, action) => {
+    console.log('ADMIN_ORDERS_TABS_VIEW', action);
+
+    const ORDER_ID = action.payload.orderId;
+    const TABS = {
+        list: false,
+        createForm: false,
+        view: true,
+        charts: false
+    };
+
+    return {
+        ...state,
+        orders: {
+            ...state.orders,
+            view: ORDER_ID,
+            tabs: TABS
+        }
+    }
+}
+
+const ADMIN_ORDERS_TABS_LIST_Handler = (state) => {
+    console.log('ADMIN_ORDERS_TABS_LIST');
+
+    const TABS = {
+        list: true,
+        createForm: false,
+        view: false,
+        charts: false
+    };
+
+    return {
+        ...state,
+        orders: {
+            ...state.orders,
+            tabs: TABS
+        }
+    };
+}
+
+const ADMIN_ORDERS_TABS_CHARTS_Handler = (state) => {
+    console.log('ADMIN_ORDERS_TABS_CHARTS');
+
+    const TABS = {
+        list: false,
+        createForm: false,
+        view: false,
+        charts: true
+    };
+
+    return {
+        ...state,
+        orders: {
+            ...state.orders,
             tabs: TABS
         }
     };

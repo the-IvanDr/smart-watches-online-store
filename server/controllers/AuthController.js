@@ -139,10 +139,6 @@ exports.loginUser = async function (req, res) {
             token
         });
 
-
-
-
-
     } catch (error) {
         console.log("ERROR:", error);
         return res.json({ error: error.message });

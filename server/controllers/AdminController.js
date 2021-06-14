@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator');
 const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
-const { User, Brand, Type, Product, ProductDetails } = require('../models/models');
+const { User, Brand, Type, Product, ProductDetails, PlacedOrder } = require('../models/models');
 const { Op } = require('sequelize');
 
 
@@ -20,7 +20,6 @@ const parseImageNameFromSrc = (imageSrc) => {
 const getImageUrl = (path, imgName) => {
     return `${process.env.SERVER_URL}/${path.split("static")[1]}/${imgName}`.replace(/\\/g, '/');
 }
-
 
 exports.product = {
     UploadMainImage: async (req, res) => {
@@ -429,6 +428,42 @@ exports.type = {
 
         } catch (error) {
             console.log("Error:", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+exports.order = {
+    GetList: async (req, res) => {
+        try {
+            let orders = await PlacedOrder.findAll();
+
+            console.log('ORDERS:', orders);
+
+            let ordersProducts = await Promise.all(orders.map(async order => {
+                const obj = JSON.parse(order.dataValues.productsJSON);
+                const product = await Promise.all(obj.map(async item => {
+                    let data = await (await Product.findOne({ where: { id: item.productId } }));
+                    data.dataValues.amount = item.amount;
+                    return data;
+                }));
+                console.log('OBJ:', obj);
+                
+
+                return product;
+
+            }));
+
+            for (let i = 0; i < orders.length; i++){
+                orders[i].dataValues.products = ordersProducts[i];
+                delete orders[i].dataValues.productsJSON;
+            }
+
+            res.json({ orders });
+
+        } catch (error) {
+
+            console.log("Error: ", error.message);
             res.status(500).json({ error: error.message });
         }
     }

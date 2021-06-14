@@ -1,44 +1,53 @@
 const sequelize = require('../db.js');
 const { DataTypes, NOW } = require('sequelize');
 
-const ID_TYPE = { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true };
+// Визначення типу ідентифікатора
+const ID_TYPE = {
+    type: DataTypes.INTEGER, // Тип атрибуту 
+    primaryKey: true, // Чи є атрибут первиним ключем
+    autoIncrement: true // Чи збільшувати значення нового запису
+};
 
-// Пользователь
+// Користувач
 const User = sequelize.define('user', {
-    id: ID_TYPE,
+    id: ID_TYPE, // Ідентифікатор (ключ)
 
-    f_name: { type: DataTypes.STRING, allowNull: false },
-    l_name: { type: DataTypes.STRING, allowNull: false },
-    m_name: { type: DataTypes.STRING },
+    // Ім'я
+    f_name: {
+        type: DataTypes.STRING, // тип (строка)
+        allowNull: false // чи можливо значення null (чи є поле обов'язковим)
+    },
+    l_name: { type: DataTypes.STRING, allowNull: false }, // Фамілія
+    m_name: { type: DataTypes.STRING }, // По батькові (не обов'язкове поле)
 
-    email: { type: DataTypes.STRING, unique: true },
-    phone: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true }, // e-mail (унікальне значення)
+    phone: { type: DataTypes.STRING }, // Телефон
 
-    password: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false }, // пароль
 
-    role: { type: DataTypes.STRING, allowNull: false, defaultValue: 'USER' }
+    role: { type: DataTypes.STRING, allowNull: false, defaultValue: 'USER' } // роль (за замовчуванням "USER")
 });
 
 // Товар
 const Product = sequelize.define('product', {
-    id: ID_TYPE,
+    id: ID_TYPE, // первинний ключ
 
-    name: { type: DataTypes.STRING, allowNull: false },
-    imageSrc: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false }, // назва товару
+    imageSrc: { type: DataTypes.STRING, allowNull: false }, // посилання на зображення товару
 
-    article: { type: DataTypes.STRING, allowNull: false },
+    article: { type: DataTypes.STRING, allowNull: false }, // артикул товару
 
-    price: { type: DataTypes.INTEGER, allowNull: false },
-    discount: { type: DataTypes.INTEGER },
+    price: { type: DataTypes.INTEGER, allowNull: false }, // ціна товару
+    discount: { type: DataTypes.INTEGER }, // знижка (%)
 
-    is_novelty: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
-    is_hit: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+    is_novelty: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }, // чи є новинкою
+    is_hit: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }, // чи є хітом
 
-    is_for_woman: { type: DataTypes.BOOLEAN, allowNull: false },
-    is_for_man: { type: DataTypes.BOOLEAN, allowNull: false },
-    is_for_kids: { type: DataTypes.BOOLEAN, allowNull: false },
+    is_for_woman: { type: DataTypes.BOOLEAN, allowNull: false }, // чи жіночий 
+    is_for_man: { type: DataTypes.BOOLEAN, allowNull: false }, // чи чоловічий
+    is_for_kids: { type: DataTypes.BOOLEAN, allowNull: false }, // чи дитячий
 
-    description: { type: DataTypes.TEXT, allowNull: false }
+    description: { type: DataTypes.TEXT, allowNull: false } // опис товару
 });
 
 // Бренд

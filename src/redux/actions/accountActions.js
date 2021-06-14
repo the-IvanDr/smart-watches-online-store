@@ -141,7 +141,6 @@ export const registration = (regData) => async dispatch => {
             });
         }
     }
-
 }
 
 export const logout = () => {

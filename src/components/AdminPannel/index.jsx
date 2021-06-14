@@ -128,7 +128,7 @@ export const AdminPannelViewWrapper = ({ children }) => {
 export const AdminPannelViewItem = ({ title, value, imgSrc }) => {
     return (
         <div className='AdminPannel__view__item'>
-            <div className='AdminPannel__view__item__title'>{title}:</div>
+            {title && <div className='AdminPannel__view__item__title'>{title}:</div>}
             {
                 imgSrc
                     ? <div className='AdminPannel__view__item__value_img'>

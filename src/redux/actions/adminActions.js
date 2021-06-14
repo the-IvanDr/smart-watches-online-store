@@ -406,3 +406,43 @@ export const TypeActions = {
         }
     }
 }
+
+export const OrderActions = {
+    getList: (jwt) => async dispatch => {
+        try {
+            const response = await APIQuery.PlacedOrder.getList(jwt);
+
+            console.log('response: ', response.data);
+
+            return dispatch({
+                type: types.ADMIN_ORDERS_GET_LIST,
+                payload: { orders: response.data.orders }
+            })
+
+        } catch (error) {
+            return dispatch({
+                type: types.ADMIN_ERROR_ALERT,
+                payload: { message: error.message, error }
+            });
+        }
+    },
+
+    openView: (orderId) => {
+        return {
+            type: types.ADMIN_ORDERS_TABS_VIEW,
+            payload: { orderId }
+        }
+    },
+
+    openList: () => {
+        return {
+            type: types.ADMIN_ORDERS_TABS_LIST
+        }
+    },
+
+    openCharts: () => {
+        return {
+            type: types.ADMIN_ORDERS_TABS_CHARTS
+        }
+    }
+}

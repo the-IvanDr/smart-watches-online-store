@@ -102,6 +102,12 @@ export const Order = {
     }
 }
 
+export const PlacedOrder = {
+    getList: async function (jwt) {
+        return await axios.get(`admin/${jwt}/order-get-list`);
+    },
+}
+
 export const Brands = {
     getList: async function () {
         return await axios.get(`admin/brand-get-list`);
