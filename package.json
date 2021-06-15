@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "chart.js": "^3.3.2",
     "clsx": "^1.1.1",
     "jodit-react": "^1.0.82",
     "next": "10.0.9",
